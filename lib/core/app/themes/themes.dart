@@ -60,16 +60,10 @@ class AppTheme {
           color: appColors.contentText1,
         ),
       ),
-      textTheme: TextTheme(
-        headline1: TextStyle(color: appColors.header),
-        headline2: TextStyle(color: appColors.header),
-        bodyText1: TextStyle(color: appColors.contentText1),
-        bodyText2: TextStyle(color: appColors.contentText2),
-        subtitle1: TextStyle(color: appColors.subText1),
-        subtitle2: TextStyle(color: appColors.subText2),
-      ),
       dividerColor: appColors.divider,
-      backgroundColor: appColors.dividerBackgroundColor,
+      colorScheme: const ColorScheme.light().copyWith(
+        surface: appColors.dividerBackgroundColor,
+      ),
     );
     return AppTheme(
       data: themeData,
@@ -124,15 +118,17 @@ class AppTheme {
         ),
       ),
       textTheme: TextTheme(
-        headline1: TextStyle(color: appColors.header),
-        headline2: TextStyle(color: appColors.header),
-        bodyText1: TextStyle(color: appColors.contentText1),
-        bodyText2: TextStyle(color: appColors.contentText2),
-        subtitle1: TextStyle(color: appColors.subText1),
-        subtitle2: TextStyle(color: appColors.subText2),
+        displayLarge: TextStyle(color: appColors.header),
+        displayMedium: TextStyle(color: appColors.header),
+        bodyLarge: TextStyle(color: appColors.contentText1),
+        bodyMedium: TextStyle(color: appColors.contentText2),
+        titleMedium: TextStyle(color: appColors.subText1),
+        titleSmall: TextStyle(color: appColors.subText2),
       ),
       dividerColor: appColors.divider,
-      backgroundColor: appColors.dividerBackgroundColor,
+      colorScheme: const ColorScheme.dark().copyWith(
+        surface: appColors.dividerBackgroundColor,
+      ),
     );
     return AppTheme(
       data: themeData,

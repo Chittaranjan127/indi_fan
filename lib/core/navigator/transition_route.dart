@@ -9,9 +9,9 @@ import 'package:streamskit_mobile/core/app/constant/constants.dart';
 
 class AppMaterialPageRoute<T> extends MaterialPageRoute<T> {
   AppMaterialPageRoute({
-    required WidgetBuilder builder,
-    required RouteSettings settings,
-  }) : super(builder: builder, settings: settings);
+    required super.builder,
+    required RouteSettings super.settings,
+  });
 
   @override
   Duration get transitionDuration => const Duration(

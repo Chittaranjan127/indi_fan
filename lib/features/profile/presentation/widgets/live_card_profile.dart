@@ -17,10 +17,10 @@ class LiveCardProflie extends StatelessWidget {
   final LiveCardModel liveModel;
   final Function()? onTap;
   const LiveCardProflie({
-    Key? key,
+    super.key,
     required this.liveModel,
     this.onTap,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {

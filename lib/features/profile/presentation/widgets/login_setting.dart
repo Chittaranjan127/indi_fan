@@ -13,8 +13,8 @@ import 'package:streamskit_mobile/features/profile/presentation/widgets/row_icon
 
 class LoginSetting extends StatelessWidget {
   const LoginSetting({
-    Key? key,
-  }) : super(key: key);
+    super.key,
+  });
 
   @override
   Widget build(BuildContext context) {

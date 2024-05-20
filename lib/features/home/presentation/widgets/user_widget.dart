@@ -10,7 +10,7 @@ import 'package:streamskit_mobile/features/home/data/model/user_model.dart';
 class UserWidget extends StatelessWidget {
   final UserModel userModel;
 
-  const UserWidget({Key? key, required this.userModel}) : super(key: key);
+  const UserWidget({super.key, required this.userModel});
 
   @override
   Widget build(BuildContext context) {

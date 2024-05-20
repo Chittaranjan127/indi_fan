@@ -20,7 +20,7 @@ import 'package:streamskit_mobile/features/profile/presentation/widgets/bottom_s
 import 'package:streamskit_mobile/features/profile/presentation/widgets/edit_profile_widget.dart';
 
 class EditProfileScreen extends StatefulWidget {
-  const EditProfileScreen({Key? key}) : super(key: key);
+  const EditProfileScreen({super.key});
 
   @override
   State<EditProfileScreen> createState() => _EditProfileScreenState();
@@ -42,7 +42,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Theme.of(context).backgroundColor,
+      backgroundColor: Theme.of(context).colorScheme.surface,
       appBar: AppBar(
         elevation: 0,
         leadingWidth: 64.sp,

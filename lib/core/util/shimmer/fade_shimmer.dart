@@ -22,7 +22,7 @@ class FadeShimmer extends StatefulWidget {
   final int millisecondsDelay;
 
   const FadeShimmer(
-      {Key? key,
+      {super.key,
       this.millisecondsDelay = 0,
       this.radius = 0,
       this.fadeTheme,
@@ -32,8 +32,7 @@ class FadeShimmer extends StatefulWidget {
       this.width,
       this.height})
       : assert(
-            (highlightColor != null && baseColor != null) || fadeTheme != null),
-        super(key: key);
+            (highlightColor != null && baseColor != null) || fadeTheme != null);
 
   /// use this to create a round loading widget
   factory FadeShimmer.round(

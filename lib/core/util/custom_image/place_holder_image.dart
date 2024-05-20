@@ -11,12 +11,12 @@ class PlaceHolderImage extends StatelessWidget {
   final BoxShape shape;
   final BorderRadiusGeometry? borderRadius;
   const PlaceHolderImage({
-    Key? key,
+    super.key,
     required this.height,
     required this.width,
     required this.shape,
     required this.borderRadius,
-  }) : super(key: key);
+  });
   @override
   Widget build(BuildContext context) {
     return shape == BoxShape.circle

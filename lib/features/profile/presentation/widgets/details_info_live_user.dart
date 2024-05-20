@@ -17,9 +17,9 @@ import 'package:streamskit_mobile/features/profile/presentation/widgets/index_in
 class DetailInfoLiveUserWidget extends StatefulWidget {
   final UserModel user;
   const DetailInfoLiveUserWidget({
-    Key? key,
+    super.key,
     required this.user,
-  }) : super(key: key);
+  });
 
   @override
   State<DetailInfoLiveUserWidget> createState() =>

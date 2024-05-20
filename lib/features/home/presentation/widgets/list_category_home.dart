@@ -8,7 +8,7 @@ import 'package:streamskit_mobile/features/home/data/model/category_model.dart';
 import 'package:streamskit_mobile/features/home/presentation/widgets/category_card.dart';
 
 class ListCategoryHome extends StatefulWidget {
-  const ListCategoryHome({Key? key}) : super(key: key);
+  const ListCategoryHome({super.key});
 
   @override
   State<ListCategoryHome> createState() => _ListCategoryHomeState();

@@ -10,8 +10,8 @@ import 'package:streamskit_mobile/features/chat/presentation/widgets/button_opti
 
 class BottomChatOptions extends StatefulWidget {
   const BottomChatOptions({
-    Key? key,
-  }) : super(key: key);
+    super.key,
+  });
   @override
   State<StatefulWidget> createState() => _BottomChatOptionsState();
 }

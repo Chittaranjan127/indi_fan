@@ -16,7 +16,7 @@ import 'package:streamskit_mobile/core/util/sizer_custom/sizer.dart';
 import 'package:streamskit_mobile/features/stream/provider/hearts_provider.dart';
 
 class HeartAnimation extends StatefulWidget {
-  const HeartAnimation({Key? key}) : super(key: key);
+  const HeartAnimation({super.key});
 
   @override
   HeartStateAnimation createState() => HeartStateAnimation();

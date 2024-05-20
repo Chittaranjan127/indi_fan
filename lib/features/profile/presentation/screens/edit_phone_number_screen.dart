@@ -4,7 +4,6 @@ import 'package:flutter/services.dart';
 
 // Package imports:
 import 'package:flutter_phosphor_icons/flutter_phosphor_icons.dart';
-import 'package:sms_autofill/sms_autofill.dart';
 
 // Project imports:
 import 'package:streamskit_mobile/core/app/colors/app_color.dart';
@@ -16,14 +15,13 @@ import 'package:streamskit_mobile/features/profile/presentation/widgets/text_for
 
 class EditPhoneNumberScreen extends StatefulWidget {
   final String? phoneNumber;
-  const EditPhoneNumberScreen({Key? key, this.phoneNumber}) : super(key: key);
+  const EditPhoneNumberScreen({super.key, this.phoneNumber});
 
   @override
   State<EditPhoneNumberScreen> createState() => _EditPhoneNumberScreenState();
 }
 
-class _EditPhoneNumberScreenState extends State<EditPhoneNumberScreen>
-    with CodeAutoFill {
+class _EditPhoneNumberScreenState extends State<EditPhoneNumberScreen> {
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
   final TextEditingController phoneNumberController = TextEditingController();
   final TextEditingController verifyController = TextEditingController();
@@ -42,30 +40,12 @@ class _EditPhoneNumberScreenState extends State<EditPhoneNumberScreen>
     }
     verifyController.text = "";
     newPasswordController.text = "";
-    listenOtp();
-  }
-
-  @override
-  void codeUpdated() {
-    if (code == null) return;
-
-    setState(() {
-      verifyController.text = code!;
-      _code = code!;
-      focusNode.unfocus();
-    });
-  }
-
-  void listenOtp() async {
-    await SmsAutoFill().unregisterListener();
-    listenForCode();
-    SmsAutoFill().listenForCode;
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Theme.of(context).backgroundColor,
+      backgroundColor: Theme.of(context).colorScheme.surface,
       appBar: AppBar(
         elevation: 0,
         leadingWidth: 64.sp,

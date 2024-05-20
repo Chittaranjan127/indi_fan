@@ -13,13 +13,13 @@ class GridviewLiveCard extends StatelessWidget {
   final bool shrinkWrap;
   final EdgeInsetsGeometry? padding;
   const GridviewLiveCard({
-    Key? key,
+    super.key,
     required this.liveModel,
     required this.type,
     this.physics,
     this.shrinkWrap = true,
     this.padding,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {

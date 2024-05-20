@@ -19,8 +19,7 @@ class LiveStreamCard extends StatelessWidget {
   final LiveStreamModel liveStreamModel;
   final Function() onTap;
   const LiveStreamCard(
-      {Key? key, required this.liveStreamModel, required this.onTap})
-      : super(key: key);
+      {super.key, required this.liveStreamModel, required this.onTap});
 
   @override
   Widget build(BuildContext context) {

@@ -12,12 +12,12 @@ class ProfileEditWidget extends StatelessWidget {
   final Function()? onTap;
   final TextStyle? style;
   const ProfileEditWidget({
-    Key? key,
+    super.key,
     required this.title,
     required this.value,
     this.style,
     this.onTap,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {

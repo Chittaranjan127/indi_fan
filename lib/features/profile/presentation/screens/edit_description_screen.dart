@@ -15,7 +15,7 @@ import 'package:streamskit_mobile/features/profile/presentation/widgets/text_for
 
 class EditDescriptionScreen extends StatefulWidget {
   final String? description;
-  const EditDescriptionScreen({Key? key, this.description}) : super(key: key);
+  const EditDescriptionScreen({super.key, this.description});
 
   @override
   State<EditDescriptionScreen> createState() => _EditDescriptionScreenState();
@@ -39,7 +39,7 @@ class _EditDescriptionScreenState extends State<EditDescriptionScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Theme.of(context).backgroundColor,
+      backgroundColor: Theme.of(context).colorScheme.surface,
       appBar: AppBar(
         elevation: 0,
         leadingWidth: 64.sp,

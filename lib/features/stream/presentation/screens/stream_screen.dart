@@ -14,7 +14,7 @@ import 'package:streamskit_mobile/features/stream/presentation/widgets/comment_w
 import 'package:streamskit_mobile/features/stream/provider/hearts_provider.dart';
 
 class StreamScreen extends StatefulWidget {
-  const StreamScreen({Key? key}) : super(key: key);
+  const StreamScreen({super.key});
 
   @override
   State<StreamScreen> createState() => _StreamScreenState();
@@ -48,11 +48,11 @@ class _StreamScreenState extends State<StreamScreen> {
               Padding(
                 padding: EdgeInsets.symmetric(horizontal: 20.sp)
                     .add(EdgeInsets.only(bottom: 10.sp)),
-                child: Align(
+                child: const Align(
                   alignment: Alignment.bottomCenter,
                   child: Column(
                     mainAxisSize: MainAxisSize.min,
-                    children: const [
+                    children: [
                       CommentWidgets(),
                     ],
                   ),

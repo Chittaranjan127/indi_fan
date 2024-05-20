@@ -11,8 +11,8 @@ import 'package:streamskit_mobile/features/profile/presentation/widgets/row_icon
 
 class ContentSetting extends StatelessWidget {
   const ContentSetting({
-    Key? key,
-  }) : super(key: key);
+    super.key,
+  });
 
   @override
   Widget build(BuildContext context) {

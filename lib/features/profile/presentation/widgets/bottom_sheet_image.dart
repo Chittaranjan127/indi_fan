@@ -14,7 +14,7 @@ import 'package:streamskit_mobile/features/profile/presentation/widgets/row_icon
 
 class BottomSheetImage extends StatefulWidget {
   final Function(String)? handleFinish;
-  const BottomSheetImage({Key? key, this.handleFinish}) : super(key: key);
+  const BottomSheetImage({super.key, this.handleFinish});
 
   @override
   State<BottomSheetImage> createState() => _BottomSheetImageState();

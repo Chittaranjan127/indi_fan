@@ -11,8 +11,7 @@ class UserConnectWidget extends StatelessWidget {
   final UserModel userModel;
   final bool isAuthor;
   const UserConnectWidget(
-      {Key? key, required this.userModel, required this.isAuthor})
-      : super(key: key);
+      {super.key, required this.userModel, required this.isAuthor});
 
   @override
   Widget build(BuildContext context) {

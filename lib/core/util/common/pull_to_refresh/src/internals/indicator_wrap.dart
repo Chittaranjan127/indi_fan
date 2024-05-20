@@ -7,10 +7,10 @@ import 'dart:math' as math;
 import 'package:flutter/rendering.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter/widgets.dart';
+import 'package:streamskit_mobile/core/util/common/pull_to_refresh/src/internals/slivers.dart';
 
 // Project imports:
-import '../smart_refresher.dart';
-import 'slivers.dart';
+import 'package:streamskit_mobile/core/util/common/pull_to_refresh/src/smart_refresher.dart';
 
 typedef VoidFutureCallBack = Future<void> Function();
 
@@ -32,13 +32,13 @@ abstract class RefreshIndicator extends StatefulWidget {
   /// the stopped time when refresh complete or fail
   final Duration completeDuration;
 
-  const RefreshIndicator(
-      {Key? key,
-      this.height = 60.0,
-      this.offset = 0.0,
-      this.completeDuration = const Duration(milliseconds: 500),
-      this.refreshStyle = RefreshStyle.Follow})
-      : super(key: key);
+  const RefreshIndicator({
+    super.key,
+    this.height = 60.0,
+    this.offset = 0.0,
+    this.completeDuration = const Duration(milliseconds: 500),
+    this.refreshStyle = RefreshStyle.Follow,
+  });
 }
 
 /// a widget  implements  pull up load
@@ -52,12 +52,12 @@ abstract class LoadIndicator extends StatefulWidget {
   /// callback when user click footer
   final VoidCallback? onClick;
 
-  const LoadIndicator(
-      {Key? key,
-      this.onClick,
-      this.loadStyle = LoadStyle.ShowAlways,
-      this.height = 60.0})
-      : super(key: key);
+  const LoadIndicator({
+    super.key,
+    this.onClick,
+    this.loadStyle = LoadStyle.ShowAlways,
+    this.height = 60.0,
+  });
 }
 
 /// Internal Implementation of Head Indicator
@@ -163,6 +163,7 @@ abstract class RefreshIndicatorState<T extends RefreshIndicator>
       if (_position!.pixels > configuration!.closeTwoLevelDistance &&
           activity is BallisticScrollActivity) {
         refresher!.controller.twoLevelComplete();
+
         return;
       }
     }
@@ -285,7 +286,7 @@ abstract class RefreshIndicatorState<T extends RefreshIndicator>
       if (configuration!.enableRefreshVibrate) {
         HapticFeedback.vibrate();
       }
-      if (refresher!.onRefresh != null) refresher!.onRefresh!();
+      refresher?.onRefresh?.call();
     } else if (mode == RefreshStatus.twoLevelOpening) {
       floating = true;
       refresherState!.setCanDrag(false);
@@ -293,19 +294,21 @@ abstract class RefreshIndicatorState<T extends RefreshIndicator>
         if (!mounted) return;
         activity!.resetActivity();
         _position!
-            .animateTo(0.0,
-                duration: const Duration(milliseconds: 500),
-                curve: Curves.linear)
+            .animateTo(
+          0.0,
+          duration: const Duration(milliseconds: 500),
+          curve: Curves.linear,
+        )
             .whenComplete(() {
           mode = RefreshStatus.twoLeveling;
         });
-        if (refresher!.onTwoLevel != null) refresher!.onTwoLevel!(true);
+        refresher?.onTwoLevel?.call(true);
       });
     } else if (mode == RefreshStatus.twoLevelClosing) {
       floating = false;
       refresherState!.setCanDrag(false);
       update();
-      if (refresher!.onTwoLevel != null) refresher!.onTwoLevel!(false);
+      refresher?.onTwoLevel?.call(false);
     } else if (mode == RefreshStatus.twoLeveling) {
       refresherState!.setCanDrag(configuration!.enableScrollWhenTwoLevel);
     }
@@ -334,21 +337,22 @@ abstract class RefreshIndicatorState<T extends RefreshIndicator>
   @override
   Widget build(BuildContext context) {
     return SliverRefresh(
-        paintOffsetY: widget.offset,
-        floating: floating,
-        refreshIndicatorLayoutExtent: mode == RefreshStatus.twoLeveling ||
-                mode == RefreshStatus.twoLevelOpening ||
-                mode == RefreshStatus.twoLevelClosing
-            ? refresherState!.viewportExtent
-            : widget.height,
-        refreshStyle: widget.refreshStyle,
-        child: RotatedBox(
-          quarterTurns: needReverseAll() &&
-                  Scrollable.of(context)!.axisDirection == AxisDirection.up
-              ? 10
-              : 0,
-          child: buildContent(context, mode),
-        ));
+      paintOffsetY: widget.offset,
+      floating: floating,
+      refreshIndicatorLayoutExtent: mode == RefreshStatus.twoLeveling ||
+              mode == RefreshStatus.twoLevelOpening ||
+              mode == RefreshStatus.twoLevelClosing
+          ? refresherState!.viewportExtent
+          : widget.height,
+      refreshStyle: widget.refreshStyle,
+      child: RotatedBox(
+        quarterTurns: needReverseAll() &&
+                Scrollable.of(context).axisDirection == AxisDirection.up
+            ? 10
+            : 0,
+        child: buildContent(context, mode),
+      ),
+    );
   }
 }
 
@@ -363,6 +367,7 @@ abstract class LoadIndicatorState<T extends LoadIndicator> extends State<T>
   double _calculateScrollOffset() {
     final double overScrollPastEnd =
         math.max(_position!.pixels - _position!.maxScrollExtent, 0.0);
+
     return overScrollPastEnd;
   }
 
@@ -382,7 +387,7 @@ abstract class LoadIndicatorState<T extends LoadIndicator> extends State<T>
   @override
   Future endLoading() {
     // lambiengcode: implement endLoading
-    return Future.delayed(const Duration(milliseconds: 0));
+    return Future.delayed(Duration.zero);
   }
 
   void finishLoading() {
@@ -395,9 +400,9 @@ abstract class LoadIndicatorState<T extends LoadIndicator> extends State<T>
       }
 
       // this line for patch bug temporary:indicator disappears fastly when load more complete
-      if (mounted) Scrollable.of(context)!.position.correctBy(0.00001);
+      if (mounted) Scrollable.of(context).position.correctBy(0.00001);
       WidgetsBinding.instance.addPostFrameCallback((_) {
-        if (mounted && _position?.outOfRange == true) {
+        if (mounted && (_position?.outOfRange ?? false)) {
           activity!.delegate.goBallistic(0);
         }
       });
@@ -424,8 +429,10 @@ abstract class LoadIndicatorState<T extends LoadIndicator> extends State<T>
           _position!.userScrollDirection == ScrollDirection.forward) {
         return false;
       }
+
       return true;
     }
+
     return false;
   }
 
@@ -446,7 +453,8 @@ abstract class LoadIndicatorState<T extends LoadIndicator> extends State<T>
           !_position!.outOfRange &&
           _position is ScrollActivityDelegate) {
         _position!.beginActivity(
-            IdleScrollActivity(_position as ScrollActivityDelegate));
+          IdleScrollActivity(_position as ScrollActivityDelegate),
+        );
       }
 
       finishLoading();
@@ -458,9 +466,7 @@ abstract class LoadIndicatorState<T extends LoadIndicator> extends State<T>
       if (configuration!.enableLoadMoreVibrate) {
         HapticFeedback.vibrate();
       }
-      if (refresher!.onLoading != null) {
-        refresher!.onLoading!();
-      }
+      refresher?.onLoading?.call();
       if (widget.loadStyle == LoadStyle.ShowWhenLoading) {
         floating = true;
       }
@@ -548,32 +554,31 @@ abstract class LoadIndicatorState<T extends LoadIndicator> extends State<T>
   Widget build(BuildContext context) {
     // lambiengcode: implement build
     return SliverLoading(
-        hideWhenNotFull: configuration!.hideFooterWhenNotFull,
-        floating: widget.loadStyle == LoadStyle.ShowAlways
-            ? true
-            : widget.loadStyle == LoadStyle.HideAlways
-                ? false
-                : floating,
-        shouldFollowContent:
-            configuration!.shouldFooterFollowWhenNotFull != null
-                ? configuration!.shouldFooterFollowWhenNotFull!(mode)
-                : mode == LoadStatus.noMore,
-        layoutExtent: widget.height,
-        mode: mode,
-        child: LayoutBuilder(
-          builder: (BuildContext context, BoxConstraints cons) {
-            _isHide = cons.biggest.height == 0.0;
-            return GestureDetector(
-              behavior: HitTestBehavior.opaque,
-              onTap: () {
-                if (widget.onClick != null) {
-                  widget.onClick!();
-                }
-              },
-              child: buildContent(context, mode),
-            );
-          },
-        ));
+      hideWhenNotFull: configuration!.hideFooterWhenNotFull,
+      floating: widget.loadStyle == LoadStyle.ShowAlways
+          ? true
+          : widget.loadStyle == LoadStyle.HideAlways
+              ? false
+              : floating,
+      shouldFollowContent: configuration!.shouldFooterFollowWhenNotFull != null
+          ? configuration!.shouldFooterFollowWhenNotFull!(mode)
+          : mode == LoadStatus.noMore,
+      layoutExtent: widget.height,
+      mode: mode,
+      child: LayoutBuilder(
+        builder: (context, cons) {
+          _isHide = cons.biggest.height == 0.0;
+
+          return GestureDetector(
+            behavior: HitTestBehavior.opaque,
+            onTap: () {
+              widget.onClick?.call();
+            },
+            child: buildContent(context, mode),
+          );
+        },
+      ),
+    );
   }
 }
 
@@ -606,7 +611,11 @@ mixin IndicatorStateMixin<T extends StatefulWidget, V> on State<T> {
 
   // update ui
   void update() {
-    if (mounted) setState(() {});
+    if (mounted) {
+      setState(() {
+        return;
+      });
+    }
   }
 
   void _handleOffsetChange() {
@@ -631,10 +640,10 @@ mixin IndicatorStateMixin<T extends StatefulWidget, V> on State<T> {
     configuration = RefreshConfiguration.of(context);
     refresher = SmartRefresher.of(context);
     refresherState = SmartRefresher.ofState(context);
-    RefreshNotifier<V>? newMode = V == RefreshStatus
+    final RefreshNotifier<V>? newMode = V == RefreshStatus
         ? refresher!.controller.headerMode as RefreshNotifier<V>?
         : refresher!.controller.footerMode as RefreshNotifier<V>?;
-    final ScrollPosition newPosition = Scrollable.of(context)!.position;
+    final ScrollPosition newPosition = Scrollable.of(context).position;
     if (newMode != _mode) {
       _mode?.removeListener(_handleModeChange);
       _mode = newMode;
@@ -696,12 +705,16 @@ mixin IndicatorStateMixin<T extends StatefulWidget, V> on State<T> {
 }
 
 /// head Indicator exposure interface
-abstract class RefreshProcessor {
+mixin RefreshProcessor {
   /// out of edge offset callback
-  void onOffsetChange(double offset) {}
+  void onOffsetChange(double offset) {
+    return;
+  }
 
   /// mode change callback
-  void onModeChange(RefreshStatus? mode) {}
+  void onModeChange(RefreshStatus? mode) {
+    return;
+  }
 
   /// when indicator is ready into refresh,it will call back and waiting for this function finish,then callback onRefresh
   Future readyToRefresh() {
@@ -718,10 +731,14 @@ abstract class RefreshProcessor {
 }
 
 /// footer Indicator exposure interface
-abstract class LoadingProcessor {
-  void onOffsetChange(double offset) {}
+mixin LoadingProcessor {
+  void onOffsetChange(double offset) {
+    return;
+  }
 
-  void onModeChange(LoadStatus? mode) {}
+  void onModeChange(LoadStatus? mode) {
+    return;
+  }
 
   /// when indicator is ready into refresh,it will call back and waiting for this function finish,then callback onRefresh
   Future readyToLoad() {
@@ -734,5 +751,7 @@ abstract class LoadingProcessor {
   }
 
   // when indicator has been spring back,it  need to reset value
-  void resetValue() {}
+  void resetValue() {
+    return;
+  }
 }

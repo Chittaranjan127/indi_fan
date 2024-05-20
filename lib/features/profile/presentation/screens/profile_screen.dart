@@ -75,7 +75,7 @@ class _ProfileScreenState extends State<ProfileScreen>
       length: 4,
       child: Scaffold(
         extendBodyBehindAppBar: true,
-        backgroundColor: Theme.of(context).backgroundColor,
+        backgroundColor: Theme.of(context).colorScheme.surface,
         appBar: PreferredSize(
           preferredSize: const Size(double.infinity, kToolbarHeight),
           child: AnimatedBuilder(
@@ -157,7 +157,7 @@ class _ProfileScreenState extends State<ProfileScreen>
                       ),
                       TabBar(
                         onTap: (_) {},
-                        overlayColor: MaterialStateProperty.all<Color>(
+                        overlayColor: WidgetStateProperty.all<Color>(
                             Colors.transparent),
                         indicatorSize: TabBarIndicatorSize.label,
                         automaticIndicatorColorAdjustment: false,

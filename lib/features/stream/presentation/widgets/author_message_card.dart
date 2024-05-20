@@ -13,8 +13,7 @@ class AuthorMessageCard extends StatefulWidget {
   final MessageModel messageModel;
   final bool pin;
   const AuthorMessageCard(
-      {Key? key, required this.messageModel, required this.pin})
-      : super(key: key);
+      {super.key, required this.messageModel, required this.pin});
 
   @override
   State<AuthorMessageCard> createState() => _AuthorMessageCardState();

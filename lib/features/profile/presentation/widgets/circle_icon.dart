@@ -11,13 +11,13 @@ class CircleIcon extends StatelessWidget {
   final Color? backgroundIcon;
   final double? sizeIcon;
   const CircleIcon({
-    Key? key,
+    super.key,
     required this.icon,
     this.onTap,
     this.colorIcon,
     this.backgroundIcon,
     this.sizeIcon,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {

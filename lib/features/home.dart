@@ -18,7 +18,7 @@ import 'package:streamskit_mobile/features/search/presentation/screens/search_sc
 import 'package:streamskit_mobile/features/stream/presentation/screens/stream_screen.dart';
 
 class Home extends StatefulWidget {
-  const Home({Key? key}) : super(key: key);
+  const Home({super.key});
 
   @override
   State<Home> createState() => _HomeState();

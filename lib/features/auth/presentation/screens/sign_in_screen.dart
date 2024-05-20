@@ -15,7 +15,7 @@ import 'package:streamskit_mobile/features/auth/presentation/bloc/auth_bloc.dart
 import 'package:streamskit_mobile/features/auth/presentation/widgets/sign_in_button.dart';
 
 class SignInScreen extends StatefulWidget {
-  const SignInScreen({Key? key}) : super(key: key);
+  const SignInScreen({super.key});
 
   @override
   State<SignInScreen> createState() => _SignInScreenState();
@@ -52,7 +52,7 @@ class _SignInScreenState extends State<SignInScreen> {
                             text: TextSpan(
                               style: Theme.of(context)
                                   .textTheme
-                                  .bodyText1
+                                  .titleMedium
                                   ?.copyWith(
                                     fontSize: 19.sp,
                                     fontWeight: FontWeight.w700,
@@ -74,12 +74,14 @@ class _SignInScreenState extends State<SignInScreen> {
                             'Creative, entertaining application just for you. Come to StreamOS today,\nwe got you.',
                             softWrap: true,
                             strutStyle: StrutStyle.disabled,
-                            style:
-                                Theme.of(context).textTheme.subtitle1?.copyWith(
-                                      fontSize: 12.sp,
-                                      fontWeight: FontWeight.w300,
-                                      height: 1.4,
-                                    ),
+                            style: Theme.of(context)
+                                .textTheme
+                                .labelMedium
+                                ?.copyWith(
+                                  fontSize: 12.sp,
+                                  fontWeight: FontWeight.w300,
+                                  height: 1.4,
+                                ),
                           ),
                           const Spacer(),
                           SignInButton(
@@ -123,7 +125,7 @@ class _SignInScreenState extends State<SignInScreen> {
                                   child: Text(
                                     'or',
                                     style:
-                                        Theme.of(context).textTheme.subtitle2,
+                                        Theme.of(context).textTheme.labelMedium,
                                   ),
                                 ),
                                 const Expanded(
@@ -151,7 +153,7 @@ class _SignInScreenState extends State<SignInScreen> {
                             text: TextSpan(
                               style: Theme.of(context)
                                   .textTheme
-                                  .subtitle1
+                                  .labelSmall
                                   ?.copyWith(
                                     fontSize: 11.5.sp,
                                     fontWeight: FontWeight.w300,

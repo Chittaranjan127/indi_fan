@@ -206,7 +206,7 @@ class SmartRefresher extends StatefulWidget {
   /// If you don't need pull down refresh ,just enablePullDown = false,
   /// If you  need pull up load ,just enablePullUp = true
   const SmartRefresher(
-      {Key? key,
+      {super.key,
       required this.controller,
       this.child,
       this.header,
@@ -225,8 +225,7 @@ class SmartRefresher extends StatefulWidget {
       this.physics,
       this.scrollDirection,
       this.scrollController})
-      : builder = null,
-        super(key: key);
+      : builder = null;
 
   /// creates a widget help attach the refresh and load more function
   /// controller must not be null,builder must not be null
@@ -236,7 +235,7 @@ class SmartRefresher extends StatefulWidget {
   /// refresh above NestedScrollVIew,we must use this constrctor to implements refresh above NestedScrollView,but for now,NestedScrollView
   /// can not support overscroll out of edge
   const SmartRefresher.builder({
-    Key? key,
+    super.key,
     required this.controller,
     required this.builder,
     this.enablePullDown = true,
@@ -255,8 +254,7 @@ class SmartRefresher extends StatefulWidget {
         semanticChildCount = null,
         dragStartBehavior = null,
         cacheExtent = null,
-        primary = null,
-        super(key: key);
+        primary = null;
 
   static SmartRefresher? of(BuildContext? context) {
     return context!.findAncestorWidgetOfExactType<SmartRefresher>();
@@ -899,7 +897,7 @@ class RefreshConfiguration extends InheritedWidget {
   final bool enableLoadMoreVibrate;
 
   const RefreshConfiguration(
-      {Key? key,
+      {super.key,
       required this.child,
       this.headerBuilder,
       this.footerBuilder,
@@ -932,14 +930,14 @@ class RefreshConfiguration extends InheritedWidget {
         assert(twiceTriggerDistance > 0),
         assert(closeTwoLevelDistance > 0),
         assert(dragSpeedRatio > 0),
-        super(key: key, child: child);
+        super(child: child);
 
   /// Construct RefreshConfiguration to copy attributes from ancestor nodes
   /// If the parameter is null, it will automatically help you to absorb the attributes of your ancestor Refresh Configuration, instead of having to copy them manually by yourself.
   ///
   /// it mostly use in some stiuation is different the other SmartRefresher in App
   RefreshConfiguration.copyAncestor({
-    Key? key,
+    super.key,
     required BuildContext context,
     required this.child,
     IndicatorBuilder? headerBuilder,
@@ -1013,7 +1011,7 @@ class RefreshConfiguration extends InheritedWidget {
             RefreshConfiguration.of(context)!.enableLoadMoreVibrate,
         shouldFooterFollowWhenNotFull = shouldFooterFollowWhenNotFull ??
             RefreshConfiguration.of(context)!.shouldFooterFollowWhenNotFull,
-        super(key: key, child: child);
+        super(child: child);
 
   static RefreshConfiguration? of(BuildContext context) {
     return context.dependOnInheritedWidgetOfExactType<RefreshConfiguration>();

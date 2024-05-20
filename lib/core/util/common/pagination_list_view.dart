@@ -17,7 +17,7 @@ class PaginationListView extends StatefulWidget {
   final EdgeInsetsGeometry? padding;
   final ScrollPhysics? physics;
   const PaginationListView({
-    Key? key,
+    super.key,
     required this.itemCount,
     required this.itemBuilder,
     required this.childShimmer,
@@ -27,7 +27,7 @@ class PaginationListView extends StatefulWidget {
     this.scrollDirection = Axis.vertical,
     this.isLoadMore = false,
     this.physics,
-  }) : super(key: key);
+  });
   @override
   State<StatefulWidget> createState() => _PaginationListViewState();
 }

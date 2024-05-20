@@ -6,7 +6,7 @@ import 'package:streamskit_mobile/core/util/numeral/numeral.dart';
 import 'package:streamskit_mobile/core/util/sizer_custom/sizer.dart';
 
 class ViewerWidget extends StatefulWidget {
-  const ViewerWidget({Key? key}) : super(key: key);
+  const ViewerWidget({super.key});
 
   @override
   State<ViewerWidget> createState() => _ViewerWidgetState();

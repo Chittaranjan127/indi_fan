@@ -82,7 +82,7 @@ class TwoLevelHeader extends StatelessWidget {
   final Duration completeDuration;
 
   const TwoLevelHeader(
-      {Key? key,
+      {super.key,
       this.height = 80.0,
       this.decoration,
       this.displayAlignment = TwoLevelDisplayAlignment.fromBottom,
@@ -102,8 +102,7 @@ class TwoLevelHeader extends StatelessWidget {
       this.completeIcon = const Icon(Icons.done, color: Colors.grey),
       this.idleIcon = const Icon(Icons.arrow_downward, color: Colors.grey),
       this.releaseIcon = const Icon(Icons.refresh, color: Colors.grey),
-      this.twoLevelWidget})
-      : super(key: key);
+      this.twoLevelWidget});
 
   @override
   Widget build(BuildContext context) {

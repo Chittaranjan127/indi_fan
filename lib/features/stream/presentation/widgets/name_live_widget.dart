@@ -7,7 +7,7 @@ import 'package:streamskit_mobile/core/util/custom_image/custom_netword_image.da
 import 'package:streamskit_mobile/core/util/sizer_custom/sizer.dart';
 
 class FullnameLiveWidget extends StatelessWidget {
-  const FullnameLiveWidget({Key? key}) : super(key: key);
+  const FullnameLiveWidget({super.key});
 
   @override
   Widget build(BuildContext context) {

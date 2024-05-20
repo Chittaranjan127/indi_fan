@@ -1,4 +1,6 @@
 // Dart imports:
+// ignore_for_file: deprecated_member_use
+
 import 'dart:async';
 import 'dart:io';
 
@@ -12,9 +14,9 @@ class ScaffoldWrapper extends StatefulWidget {
   final Widget child;
 
   const ScaffoldWrapper({
-    Key? key,
+    super.key,
     required this.child,
-  }) : super(key: key);
+  });
 
   @override
   State<StatefulWidget> createState() => _ScaffoldWrapperState();

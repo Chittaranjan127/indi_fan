@@ -38,7 +38,7 @@ class _EditUserNameScreenState extends State<EditUserNameScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Theme.of(context).backgroundColor,
+      backgroundColor: Theme.of(context).colorScheme.surface,
       appBar: AppBar(
         elevation: 0,
         leadingWidth: 64.sp,

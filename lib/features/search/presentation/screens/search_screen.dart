@@ -14,7 +14,7 @@ import 'package:streamskit_mobile/features/search/data/top_search_model.dart';
 import 'package:streamskit_mobile/features/search/presentation/widgets/search_more_widget.dart';
 
 class SearchScreen extends StatefulWidget {
-  const SearchScreen({Key? key}) : super(key: key);
+  const SearchScreen({super.key});
 
   @override
   State<SearchScreen> createState() => _SearchScreenState();

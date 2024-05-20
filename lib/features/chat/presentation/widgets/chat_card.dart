@@ -10,9 +10,9 @@ import 'package:streamskit_mobile/features/chat/data/conversation_model.dart';
 class ChatCard extends StatefulWidget {
   final ConversationModel conversationModel;
   const ChatCard({
-    Key? key,
+    super.key,
     required this.conversationModel,
-  }) : super(key: key);
+  });
 
   @override
   State<ChatCard> createState() => _ChatCardState();

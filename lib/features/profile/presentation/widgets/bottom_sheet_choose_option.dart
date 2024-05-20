@@ -10,7 +10,7 @@ import 'package:streamskit_mobile/core/util/styles/profile_style.dart';
 import 'package:streamskit_mobile/features/profile/presentation/widgets/row_icon_text.dart';
 
 class BottomSheetChooseOption extends StatelessWidget {
-  const BottomSheetChooseOption({Key? key}) : super(key: key);
+  const BottomSheetChooseOption({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -59,7 +59,7 @@ class BottomSheetChooseOption extends StatelessWidget {
 }
 
 class DividerBottomSheet extends StatelessWidget {
-  const DividerBottomSheet({Key? key}) : super(key: key);
+  const DividerBottomSheet({super.key});
 
   @override
   Widget build(BuildContext context) {

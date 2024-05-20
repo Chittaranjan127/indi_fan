@@ -7,11 +7,11 @@ class TouchableOpacity extends StatefulWidget {
   final Widget child;
 
   const TouchableOpacity({
-    Key? key,
+    super.key,
     required this.child,
     this.onTap,
     this.onLongPress,
-  }) : super(key: key);
+  });
 
   @override
   State<TouchableOpacity> createState() => _TouchableOpacityState();

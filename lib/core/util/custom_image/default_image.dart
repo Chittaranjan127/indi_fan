@@ -14,14 +14,14 @@ class DefaultImage extends StatelessWidget {
   final BorderRadiusGeometry? borderRadius;
   final Widget? childInAvatar;
   const DefaultImage({
-    Key? key,
+    super.key,
     required this.height,
     required this.width,
     required this.margin,
     required this.shape,
     this.borderRadius,
     this.childInAvatar,
-  }) : super(key: key);
+  });
   @override
   Widget build(BuildContext context) {
     return Container(

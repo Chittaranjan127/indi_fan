@@ -29,7 +29,7 @@ class TextFieldFormRequest extends StatelessWidget {
   final Color? underLine;
 
   const TextFieldFormRequest({
-    Key? key,
+    super.key,
     required this.validatorForm,
     required this.hintText,
     this.textInputType,
@@ -49,7 +49,7 @@ class TextFieldFormRequest extends StatelessWidget {
     this.textStyle,
     this.textStyleHint,
     this.underLine,
-  }) : super(key: key);
+  });
   @override
   Widget build(BuildContext context) {
     return Container(

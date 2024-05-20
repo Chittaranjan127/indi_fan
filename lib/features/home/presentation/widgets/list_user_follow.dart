@@ -7,7 +7,7 @@ import 'package:streamskit_mobile/features/home/data/model/user_model.dart';
 import 'package:streamskit_mobile/features/home/presentation/widgets/user_widget.dart';
 
 class ListUserFollow extends StatelessWidget {
-  const ListUserFollow({Key? key}) : super(key: key);
+  const ListUserFollow({super.key});
 
   @override
   Widget build(BuildContext context) {

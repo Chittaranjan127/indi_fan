@@ -17,7 +17,7 @@ class RowIconText extends StatelessWidget {
   final TextStyle? textStyle;
   final Function()? onTap;
   const RowIconText({
-    Key? key,
+    super.key,
     required this.title,
     this.iconLeading,
     this.onTap,
@@ -27,7 +27,7 @@ class RowIconText extends StatelessWidget {
     this.sizeLeading,
     this.sizeSuffix,
     this.textStyle,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {

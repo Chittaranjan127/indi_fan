@@ -11,11 +11,11 @@ class SearchMoreWidget extends StatelessWidget {
   final String stt;
   final Color sttColor;
   const SearchMoreWidget({
-    Key? key,
+    super.key,
     required this.nameStreamer,
     required this.stt,
     required this.sttColor,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {

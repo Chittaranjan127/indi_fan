@@ -15,7 +15,7 @@ import 'package:streamskit_mobile/features/profile/presentation/widgets/content_
 import 'package:streamskit_mobile/features/profile/presentation/widgets/login_setting.dart';
 
 class SettingScreen extends StatefulWidget {
-  const SettingScreen({Key? key}) : super(key: key);
+  const SettingScreen({super.key});
 
   @override
   State<SettingScreen> createState() => _SettingScreenState();
@@ -26,7 +26,7 @@ class _SettingScreenState extends State<SettingScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Theme.of(context).backgroundColor,
+      backgroundColor: Theme.of(context).colorScheme.surface,
       appBar: AppBar(
         elevation: 0,
         leadingWidth: 64.sp,

@@ -17,7 +17,7 @@ import 'package:streamskit_mobile/features/stream/presentation/widgets/floating_
 import 'package:streamskit_mobile/features/stream/provider/hearts_provider.dart';
 
 class CommentWidgets extends StatefulWidget {
-  const CommentWidgets({Key? key}) : super(key: key);
+  const CommentWidgets({super.key});
 
   @override
   State<CommentWidgets> createState() => _CommentWidgetsState();

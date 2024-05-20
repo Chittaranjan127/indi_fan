@@ -35,10 +35,10 @@ class WaterDropHeader extends RefreshIndicator {
   final Color waterDropColor;
 
   const WaterDropHeader({
-    Key? key,
+    super.key,
     this.refresh,
     this.complete,
-    Duration completeDuration = const Duration(milliseconds: 600),
+    super.completeDuration = const Duration(milliseconds: 600),
     this.failed,
     this.waterDropColor = Colors.grey,
     this.idleIcon = const Icon(
@@ -47,9 +47,7 @@ class WaterDropHeader extends RefreshIndicator {
       color: Colors.white,
     ),
   }) : super(
-            key: key,
             height: 60.0,
-            completeDuration: completeDuration,
             refreshStyle: RefreshStyle.UnFollow);
 
   @override
@@ -162,7 +160,7 @@ class _WaterDropHeaderState extends RefreshIndicatorState<WaterDropHeader>
               children: <Widget>[
                 RotatedBox(
                   quarterTurns:
-                      Scrollable.of(context)!.axisDirection == AxisDirection.up
+                      Scrollable.of(context).axisDirection == AxisDirection.up
                           ? 10
                           : 0,
                   child: CustomPaint(
@@ -177,11 +175,11 @@ class _WaterDropHeaderState extends RefreshIndicatorState<WaterDropHeader>
                 ),
                 Container(
                   alignment:
-                      Scrollable.of(context)!.axisDirection == AxisDirection.up
+                      Scrollable.of(context).axisDirection == AxisDirection.up
                           ? Alignment.bottomCenter
                           : Alignment.topCenter,
                   margin:
-                      Scrollable.of(context)!.axisDirection == AxisDirection.up
+                      Scrollable.of(context).axisDirection == AxisDirection.up
                           ? const EdgeInsets.only(bottom: 12.0)
                           : const EdgeInsets.only(top: 12.0),
                   child: widget.idleIcon,

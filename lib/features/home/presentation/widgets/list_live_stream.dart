@@ -8,7 +8,7 @@ import 'package:streamskit_mobile/features/home/presentation/widgets/live_stream
 import 'package:streamskit_mobile/features/stream/presentation/screens/stream_screen.dart';
 
 class ListLiveStream extends StatelessWidget {
-  const ListLiveStream({Key? key}) : super(key: key);
+  const ListLiveStream({super.key});
 
   @override
   Widget build(BuildContext context) {

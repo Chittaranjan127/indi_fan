@@ -22,7 +22,7 @@ class TextFormFieldProfile extends StatelessWidget {
   final FocusNode? focusNode;
   final String? Function(String?)? validator;
   const TextFormFieldProfile({
-    Key? key,
+    super.key,
     required this.controller,
     required this.hintText,
     required this.icon,
@@ -36,7 +36,7 @@ class TextFormFieldProfile extends StatelessWidget {
     this.onChanged,
     this.validator,
     this.maxLines,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {

@@ -12,12 +12,12 @@ class ButtonOptionWidget extends StatelessWidget {
   final bool isDanger;
   final bool isCancel;
   const ButtonOptionWidget({
-    Key? key,
+    super.key,
     required this.text,
     required this.handlePressed,
     this.isDanger = false,
     this.isCancel = false,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {

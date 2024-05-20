@@ -13,7 +13,7 @@ import 'package:streamskit_mobile/features/chat/presentation/widgets/user_connec
 import 'package:streamskit_mobile/features/home/data/model/user_model.dart';
 
 class ChatScreen extends StatefulWidget {
-  const ChatScreen({Key? key}) : super(key: key);
+  const ChatScreen({super.key});
 
   @override
   State<ChatScreen> createState() => _ChatScreenState();

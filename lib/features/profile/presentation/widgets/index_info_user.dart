@@ -10,10 +10,10 @@ class IndexInfoUser extends StatelessWidget {
   final String titleIndex;
   final int numberIndex;
   const IndexInfoUser({
-    Key? key,
+    super.key,
     required this.titleIndex,
     required this.numberIndex,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {

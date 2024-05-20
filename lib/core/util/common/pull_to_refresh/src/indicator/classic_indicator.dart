@@ -59,10 +59,10 @@ class ClassicHeader extends RefreshIndicator {
   final TextStyle textStyle;
 
   const ClassicHeader({
-    Key? key,
-    RefreshStyle refreshStyle = RefreshStyle.Follow,
-    double height = 60.0,
-    Duration completeDuration = const Duration(milliseconds: 600),
+    super.key,
+    RefreshStyle super.refreshStyle,
+    super.height,
+    super.completeDuration = const Duration(milliseconds: 600),
     this.outerBuilder,
     this.textStyle = const TextStyle(color: Colors.grey),
     this.releaseText,
@@ -80,12 +80,7 @@ class ClassicHeader extends RefreshIndicator {
     this.completeIcon = const Icon(Icons.done, color: Colors.grey),
     this.idleIcon = const Icon(Icons.arrow_downward, color: Colors.grey),
     this.releaseIcon = const Icon(Icons.refresh, color: Colors.grey),
-  }) : super(
-          key: key,
-          refreshStyle: refreshStyle,
-          completeDuration: completeDuration,
-          height: height,
-        );
+  });
 
   @override
   State createState() {
@@ -213,10 +208,10 @@ class ClassicFooter extends LoadIndicator {
   final Duration completeDuration;
 
   const ClassicFooter({
-    Key? key,
-    VoidCallback? onClick,
-    LoadStyle loadStyle = LoadStyle.ShowAlways,
-    double height = 60.0,
+    super.key,
+    super.onClick,
+    super.loadStyle,
+    super.height,
     this.outerBuilder,
     this.textStyle = const TextStyle(color: Colors.grey),
     this.loadingText,
@@ -232,12 +227,7 @@ class ClassicFooter extends LoadIndicator {
     this.loadingIcon,
     this.canLoadingIcon = const Icon(Icons.autorenew, color: Colors.grey),
     this.idleIcon = const Icon(Icons.arrow_upward, color: Colors.grey),
-  }) : super(
-          key: key,
-          loadStyle: loadStyle,
-          height: height,
-          onClick: onClick,
-        );
+  });
 
   @override
   State<StatefulWidget> createState() {

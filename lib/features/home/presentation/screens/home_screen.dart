@@ -14,7 +14,7 @@ import 'package:streamskit_mobile/features/home/presentation/widgets/list_live_s
 import 'package:streamskit_mobile/features/home/presentation/widgets/list_user_follow.dart';
 
 class HomeScreen extends StatefulWidget {
-  const HomeScreen({Key? key}) : super(key: key);
+  const HomeScreen({super.key});
 
   @override
   State<HomeScreen> createState() => _HomeScreenState();

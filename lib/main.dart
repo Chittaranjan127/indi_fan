@@ -3,7 +3,6 @@ import 'dart:async';
 
 // Flutter imports:
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 
 // Package imports:
 import 'package:firebase_core/firebase_core.dart';
@@ -16,13 +15,11 @@ import 'package:streamskit_mobile/features/app/app.dart';
 import 'package:streamskit_mobile/features/app/bloc/app_bloc.dart';
 
 void main(List<String> args) async {
-  WidgetsFlutterBinding.ensureInitialized();
-  PaintingBinding.instance.imageCache.maximumSizeBytes =
-      1024 * 1024 * 300; // 300 MB
   await runZonedGuarded(() async {
-    SystemChrome.setSystemUIOverlayStyle(const SystemUiOverlayStyle(
-      statusBarColor: Colors.transparent,
-    ));
+    WidgetsFlutterBinding.ensureInitialized();
+    PaintingBinding.instance.imageCache.maximumSizeBytes =
+        1024 * 1024 * 300; // 300 MB
+
     await Application.initialAppLication();
 
     await Firebase.initializeApp();

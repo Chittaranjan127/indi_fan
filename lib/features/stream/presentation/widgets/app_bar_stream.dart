@@ -7,7 +7,7 @@ import 'package:streamskit_mobile/features/stream/presentation/widgets/name_live
 import 'package:streamskit_mobile/features/stream/presentation/widgets/viewer_widget.dart';
 
 class AppBarStream extends StatelessWidget {
-  const AppBarStream({Key? key}) : super(key: key);
+  const AppBarStream({super.key});
 
   @override
   Widget build(BuildContext context) {

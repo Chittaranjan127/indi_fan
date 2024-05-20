@@ -17,10 +17,10 @@ class BottomSheetBirthday extends StatefulWidget {
   final DateTime? dateInit;
 
   const BottomSheetBirthday({
-    Key? key,
+    super.key,
     required this.onDateChanged,
     required this.dateInit,
-  }) : super(key: key);
+  });
 
   @override
   State<BottomSheetBirthday> createState() => _BottomSheetBirthdayState();
