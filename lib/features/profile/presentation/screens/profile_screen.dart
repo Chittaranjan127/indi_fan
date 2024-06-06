@@ -157,7 +157,7 @@ class _ProfileScreenState extends State<ProfileScreen>
                       ),
                       TabBar(
                         onTap: (_) {},
-                        overlayColor: WidgetStateProperty.all<Color>(
+                        overlayColor: MaterialStateProperty.all<Color>(
                             Colors.transparent),
                         indicatorSize: TabBarIndicatorSize.label,
                         automaticIndicatorColorAdjustment: false,
