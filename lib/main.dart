@@ -1,7 +1,6 @@
-// Dart imports:
+// Flutter imports:
 import 'dart:async';
 
-// Flutter imports:
 import 'package:flutter/material.dart';
 
 // Package imports:

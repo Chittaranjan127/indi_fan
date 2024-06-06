@@ -1,17 +1,15 @@
-// Flutter imports:
-// ignore_for_file: depend_on_referenced_packages
-
-// Flutter imports:
 import 'package:flutter/material.dart';
 
 // Package imports:
 import 'package:provider/provider.dart';
+import 'package:streamskit_mobile/core/app/constant/LiveStreamConstants.dart';
 
 // Project imports:
 import 'package:streamskit_mobile/core/util/sizer_custom/sizer.dart';
 import 'package:streamskit_mobile/features/stream/presentation/widgets/app_bar_stream.dart';
 import 'package:streamskit_mobile/features/stream/presentation/widgets/comment_widget.dart';
 import 'package:streamskit_mobile/features/stream/provider/hearts_provider.dart';
+import 'package:zego_uikit_prebuilt_live_streaming/zego_uikit_prebuilt_live_streaming.dart';
 
 class StreamScreen extends StatefulWidget {
   const StreamScreen({super.key});
@@ -23,44 +21,29 @@ class StreamScreen extends StatefulWidget {
 class _StreamScreenState extends State<StreamScreen> {
   @override
   Widget build(BuildContext context) {
-    return MultiProvider(
-      providers: [
-        ChangeNotifierProvider(create: (context) => FloatingHeartsProvider()),
-      ],
-      child: Scaffold(
-        resizeToAvoidBottomInset: false,
-        body: Container(
-          width: double.infinity,
-          height: double.infinity,
-          color: Colors.purple.withOpacity(0.2),
-          child: Stack(
-            children: [
-              Image.asset(
-                'assets/images/stream_image.jpg',
-                fit: BoxFit.fitHeight,
-                height: double.infinity,
-              ),
-              Padding(
-                padding:
-                    EdgeInsets.symmetric(vertical: 16.sp, horizontal: 16.sp),
-                child: const AppBarStream(),
-              ),
-              Padding(
-                padding: EdgeInsets.symmetric(horizontal: 20.sp)
-                    .add(EdgeInsets.only(bottom: 10.sp)),
-                child: const Align(
-                  alignment: Alignment.bottomCenter,
-                  child: Column(
-                    mainAxisSize: MainAxisSize.min,
-                    children: [
-                      CommentWidgets(),
-                    ],
-                  ),
-                ),
-              ),
-            ],
-          ),
-        ),
+    return SafeArea(
+      child: ZegoUIKitPrebuiltLiveStreaming(
+        appID: LiveStreamConstants.zegocloud_APP_ID,
+        appSign: LiveStreamConstants.zegocloud_APP_SIGN,
+        userID: 'user_id',
+        userName: 'user_name',
+        liveID: LiveStreamConstants.zegocloud_LIVE_ID,
+        config: ZegoUIKitPrebuiltLiveStreamingConfig.host()
+          ..avatarBuilder = (BuildContext context, Size size,
+              ZegoUIKitUser? user, Map extraInfo) {
+            return user != null
+                ? Container(
+                    decoration: const BoxDecoration(
+                      shape: BoxShape.circle,
+                      image: DecorationImage(
+                        image: NetworkImage(
+                          'https://png.pngtree.com/png-vector/20191101/ourmid/pngtree-cartoon-color-simple-male-avatar-png-image_1934459.jpg',
+                        ),
+                      ),
+                    ),
+                  )
+                : const SizedBox();
+          },
       ),
     );
   }
