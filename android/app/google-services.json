@@ -1,0 +1,46 @@
+{
+  "project_info": {
+    "project_number": "378897409307",
+    "project_id": "indi-fan-15f0b",
+    "storage_bucket": "indi-fan-15f0b.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:378897409307:android:7e624e541fc53c85465fbe",
+        "android_client_info": {
+          "package_name": "com.streams.kit"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "378897409307-oo2157g9nrhbtr2e6l6l3pfi3bj77q5u.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCrfJxgoutPx7_XQNgvVPPW02VUJNDLW8M"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "378897409307-oo2157g9nrhbtr2e6l6l3pfi3bj77q5u.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "378897409307-0hcdq5kflshtov31ckqsn2tppk5fhft1.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "in.highbraintech"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
