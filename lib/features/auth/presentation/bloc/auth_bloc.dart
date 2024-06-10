@@ -1,6 +1,7 @@
 // Package imports:
 import 'package:dartz/dartz.dart';
 import 'package:equatable/equatable.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 // Project imports:
@@ -14,6 +15,7 @@ import 'package:streamskit_mobile/features/auth/domain/entities/social.dart';
 import 'package:streamskit_mobile/features/auth/domain/usecases/check_logined.dart';
 import 'package:streamskit_mobile/features/auth/domain/usecases/sign_in_with_social.dart';
 import 'package:streamskit_mobile/features/auth/domain/usecases/sign_out.dart';
+import 'package:streamskit_mobile/features/home/data/model/user_model.dart';
 
 part 'auth_event.dart';
 part 'auth_state.dart';
@@ -54,6 +56,8 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
   }) async {
     emit(Authenticating());
     late final SocialValue? socialValue;
+    late final UserModel? userModel;
+
     switch (authType) {
       case AuthType.google:
         socialValue = await signInWithGoogle();
