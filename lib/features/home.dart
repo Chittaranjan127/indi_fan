@@ -19,6 +19,7 @@ import 'package:streamskit_mobile/features/home/presentation/screens/home_screen
 import 'package:streamskit_mobile/features/profile/presentation/screens/profile_screen.dart';
 import 'package:streamskit_mobile/features/search/presentation/screens/search_screen.dart';
 import 'package:streamskit_mobile/features/stream/presentation/screens/stream_screen.dart';
+import 'package:streamskit_mobile/features/stream/presentation/widgets/bottom_sheet_choose_option.dart';
 
 import '../core/util/firestore/firestore_user.dart';
 
@@ -35,7 +36,7 @@ class _HomeState extends State<Home> {
   final List<Widget> _tabs = [
     const HomeScreen(),
     const SearchScreen(),
-    const StreamScreen(),
+    const HomeScreen(),
     const ChatScreen(),
     const ProfileScreen(),
   ];
@@ -54,7 +55,6 @@ class _HomeState extends State<Home> {
 
   Future<void> _loadUserId() async {
     String? userId = await SharedPreferencesUtil.getString('userId');
-    debugPrint('User Id on Init : $userId');
     _loadUserData(userId);
   }
 
@@ -67,7 +67,6 @@ class _HomeState extends State<Home> {
         setState(() {
           _user = _userData;
         });
-        debugPrint('User Data : $_user');
       }
     } catch (e) {
       debugPrint('Error while loading user : $e');
@@ -153,7 +152,12 @@ class _HomeState extends State<Home> {
             Align(
               alignment: Alignment.bottomCenter,
               child: TouchableOpacity(
-                onTap: () {},
+                onTap: () {
+                  showModalBottomSheet(
+                      backgroundColor: Colors.transparent,
+                      context: context,
+                      builder: (context) => BottomSheetChooseOptionHome(user: _user!,));
+                },
                 child: Container(
                   padding: EdgeInsets.all(13.sp),
                   margin: EdgeInsets.only(bottom: 38.sp),
