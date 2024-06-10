@@ -15,7 +15,7 @@
 	<key>CFBundleInfoDictionaryVersion</key>
 	<string>6.0</string>
 	<key>CFBundleName</key>
-	<string>com.streams.kit</string>
+	<string>in.highbraintech</string>
 	<key>CFBundlePackageType</key>
 	<string>APPL</string>
 	<key>CFBundleShortVersionString</key>
@@ -28,11 +28,10 @@
 			<key>CFBundleTypeRole</key>
 			<string>Editor</string>
 			<key>CFBundleURLName</key>
-			<string>com.streams.kit</string>
+			<string>in.highbraintech</string>
 			<key>CFBundleURLSchemes</key>
 			<array>
-				<!-- <string>fb1136908073738095</string> -->
-				<string>com.googleusercontent.apps.38681732543-a1c15bbp5qra3vdf4c26f8h4qj4mp8hm</string>
+				<string>com.googleusercontent.apps.621946279364-q9s81fkaung1sai936fp11pbg5k55ma3</string>
 				<string>https</string>
 			</array>
 		</dict>
@@ -41,6 +40,10 @@
 	<string>$(FLUTTER_BUILD_NUMBER)</string>
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
+	<key>NSCameraUsageDescription</key>
+	<string>We require camera access to connect to a live</string>
+	<key>NSMicrophoneUsageDescription</key>
+	<string>We require microphone access to connect to a live</string>
 	<key>UIApplicationSupportsIndirectInputEvents</key>
 	<true/>
 	<key>UILaunchStoryboardName</key>
@@ -62,10 +65,5 @@
 	</array>
 	<key>UIViewControllerBasedStatusBarAppearance</key>
 	<false/>
-    <key>NSCameraUsageDescription</key>
-    <string>We require camera access to connect to a live</string>
-    <key>NSMicrophoneUsageDescription</key>
-    <string>We require microphone access to connect to a live</string>
-
 </dict>
 </plist>

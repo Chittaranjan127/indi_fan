@@ -49,5 +49,5 @@ post_install do |installer|
       ]
     end
     # End of the permission_handler configuration
-  end
+  enddi
 end
