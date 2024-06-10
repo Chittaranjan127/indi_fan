@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:streamskit_mobile/features/home/presentation/widgets/user_widget.dart';
 import '../../data/datasources/remote_live_stream_source.dart';
 import '../../data/model/live_stream_model.dart';
-import 'live_stream_card.dart';  // Adjust the import path
 
 class ListHostsLive extends StatefulWidget {
   @override
@@ -28,12 +28,19 @@ class _ListHostsLiveState extends State<ListHostsLive> {
         }
 
         var liveStreams = snapshot.data!.where((stream) => !stream.isLiveStreamEnded).toList();
-        return ListView.builder(
-          itemCount: liveStreams.length,
-          itemBuilder: (context, index) {
-            var liveStream = liveStreams[index];
-            return LiveStreamCard(liveStream: liveStream);  // Adjust according to your LiveStreamCard implementation
-          },
+        return SizedBox(
+          height: 100, // Adjust the height as needed
+          child: ListView.builder(
+            scrollDirection: Axis.horizontal,
+            itemCount: liveStreams.length,
+            itemBuilder: (context, index) {
+              var liveStream = liveStreams[index];
+              return Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: UserWidget(liveStreamModel: liveStream),
+              );
+            },
+          ),
         );
       },
     );

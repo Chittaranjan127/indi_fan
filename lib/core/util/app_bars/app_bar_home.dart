@@ -11,7 +11,7 @@ import 'package:streamskit_mobile/core/util/sizer_custom/sizer.dart';
 import 'package:streamskit_mobile/core/util/styles/style.dart';
 import 'package:streamskit_mobile/features/home/presentation/widgets/button_circle.dart';
 import 'package:streamskit_mobile/features/home/presentation/widgets/list_category_home.dart';
-import 'package:streamskit_mobile/features/home/presentation/widgets/list_user_follow.dart';
+import 'package:streamskit_mobile/features/home/presentation/widgets/list_hosts_live.dart';
 
 AppBar appBarHome({
   required BuildContext context,
