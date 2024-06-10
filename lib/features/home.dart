@@ -2,6 +2,7 @@
 import 'dart:ui';
 
 // Flutter imports:
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 
 // Package imports:
@@ -9,13 +10,17 @@ import 'package:phosphor_flutter/phosphor_flutter.dart';
 
 // Project imports:
 import 'package:streamskit_mobile/core/app/colors/app_color.dart';
+import 'package:streamskit_mobile/core/util/SharedPreferencesUtil.dart';
 import 'package:streamskit_mobile/core/util/common/touchable_opacity.dart';
 import 'package:streamskit_mobile/core/util/sizer_custom/sizer.dart';
 import 'package:streamskit_mobile/features/chat/presentation/screens/chat_screen.dart';
+import 'package:streamskit_mobile/features/home/data/model/user_model.dart';
 import 'package:streamskit_mobile/features/home/presentation/screens/home_screen.dart';
 import 'package:streamskit_mobile/features/profile/presentation/screens/profile_screen.dart';
 import 'package:streamskit_mobile/features/search/presentation/screens/search_screen.dart';
 import 'package:streamskit_mobile/features/stream/presentation/screens/stream_screen.dart';
+
+import '../core/util/firestore/firestore_user.dart';
 
 class Home extends StatefulWidget {
   const Home({super.key});
@@ -25,6 +30,8 @@ class Home extends StatefulWidget {
 }
 
 class _HomeState extends State<Home> {
+  UserModel? _user;
+
   final List<Widget> _tabs = [
     const HomeScreen(),
     const SearchScreen(),
@@ -40,11 +47,39 @@ class _HomeState extends State<Home> {
   }
 
   @override
+  void initState() {
+    _loadUserId();
+    super.initState();
+  }
+
+  Future<void> _loadUserId() async {
+    String? userId = await SharedPreferencesUtil.getString('userId');
+    debugPrint('User Id on Init : $userId');
+    _loadUserData(userId);
+  }
+
+  Future<void> _loadUserData(String? userId) async {
+    try {
+      FirebaseFirestore firestore = FirebaseFirestore.instance;
+      FireStoreUser fireStoreUser = FireStoreUserImpl(firestore);
+      UserModel? _userData = await fireStoreUser.getUserById(userId!);
+      if (_userData != null) {
+        setState(() {
+          _user = _userData;
+        });
+        debugPrint('User Data : $_user');
+      }
+    } catch (e) {
+      debugPrint('Error while loading user : $e');
+    }
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: Stack(
         children: [
-          _tabs[_currentIndex],
+          _tabs[_currentIndex], // Ensure _tabs is defined
           Align(
             alignment: Alignment.bottomCenter,
             child: Container(
@@ -96,7 +131,8 @@ class _HomeState extends State<Home> {
                         activeIcon: PhosphorIcons.magnifyingGlassBold,
                         index: 1,
                       ),
-                      const Expanded(child: SizedBox()),
+                      if (_user != null && _user!.isHost)
+                        const Expanded(child: SizedBox()),
                       _buildItemBottomBar(
                         inActiveIcon: PhosphorIcons.chatTeardropDotsLight,
                         activeIcon: PhosphorIcons.chatTeardropDotsFill,
@@ -113,25 +149,26 @@ class _HomeState extends State<Home> {
               ),
             ),
           ),
-          Align(
-            alignment: Alignment.bottomCenter,
-            child: TouchableOpacity(
-              onTap: () {},
-              child: Container(
-                padding: EdgeInsets.all(13.sp),
-                margin: EdgeInsets.only(bottom: 38.sp),
-                decoration: BoxDecoration(
-                  color: colorPink,
-                  shape: BoxShape.circle,
-                ),
-                child: Icon(
-                  PhosphorIcons.plusBold,
-                  size: 20.sp,
-                  color: mCL,
+          if (_user != null && _user!.isHost)
+            Align(
+              alignment: Alignment.bottomCenter,
+              child: TouchableOpacity(
+                onTap: () {},
+                child: Container(
+                  padding: EdgeInsets.all(13.sp),
+                  margin: EdgeInsets.only(bottom: 38.sp),
+                  decoration: BoxDecoration(
+                    color: colorPink,
+                    shape: BoxShape.circle,
+                  ),
+                  child: Icon(
+                    PhosphorIcons.plusBold,
+                    size: 20.sp,
+                    color: mCL,
+                  ),
                 ),
               ),
             ),
-          )
         ],
       ),
     );
