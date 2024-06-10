@@ -42,6 +42,7 @@ Future<SocialValue?> signInWithGoogle() async {
 
     await fireStoreUser.saveUser(UserModel(userId: firebaseUserCredential.user!.uid, fullName: googleUser.displayName!, urlToImage: firebaseUserCredential.user!.photoURL!, email: firebaseUserCredential.user!.email!,  phoneNumber: firebaseUserCredential.user!.phoneNumber,));
     SharedPreferencesUtil.saveString('userId', firebaseUserCredential.user!.uid);
+    SharedPreferencesUtil.saveString('userName', googleUser.displayName!);
 
     return SocialValue(
       fullName: googleUser.displayName ?? 'user.highbraintech.google',
