@@ -84,7 +84,9 @@ dependencies:
 
   zego_uikit: ^2.22.8
   zego_uikit_signaling_plugin: ^2.7.12
-  zego_uikit_prebuilt_live_streaming: ^3.8.3
+  zego_uikit_prebuilt_live_streaming: ^3.8.4
+  cloud_firestore: ^4.17.5
+  shared_preferences: ^2.2.3
 
 dev_dependencies:
   flutter_test:

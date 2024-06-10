@@ -304,7 +304,7 @@ class _ProfileScreenState extends State<ProfileScreen>
     "Genshin Impact"
   ];
   final UserModel user = UserModel(
-      id: "",
+      userId: "",
       urlToImage:
           "https://donoithatdanang.com/wp-content/uploads/2021/11/mang-hinh-khoa-cute-08.jpg",
       fullName: "Tony Tony Chopper",
@@ -313,5 +313,5 @@ class _ProfileScreenState extends State<ProfileScreen>
       posts: 1000,
       followers: 9400,
       followings: 8543337121,
-      listFields: listFieldLive);
+      listFields: listFieldLive, email: '');
 }

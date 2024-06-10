@@ -3,19 +3,28 @@ import 'dart:convert';
 import 'dart:math';
 
 // Package imports:
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:crypto/crypto.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter_facebook_auth/flutter_facebook_auth.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:sign_in_with_apple/sign_in_with_apple.dart';
+import 'package:streamskit_mobile/core/util/SharedPreferencesUtil.dart';
 
 // Project imports:
 import 'package:streamskit_mobile/features/auth/domain/entities/social.dart';
+import 'package:streamskit_mobile/features/home/data/model/user_model.dart';
+
+import '../firestore/firestore_user.dart';
 
 // Project imports:
 
 Future<SocialValue?> signInWithGoogle() async {
   try {
+    FirebaseFirestore firestore = FirebaseFirestore.instance;
+    FireStoreUser fireStoreUser = FireStoreUserImpl(firestore);
+
     await GoogleSignIn().signOut();
     final GoogleSignInAccount? googleUser = await GoogleSignIn().signIn();
     final GoogleSignInAuthentication googleAuth =
@@ -31,11 +40,16 @@ Future<SocialValue?> signInWithGoogle() async {
       return null;
     }
 
+    await fireStoreUser.saveUser(UserModel(userId: firebaseUserCredential.user!.uid, fullName: googleUser.displayName!, urlToImage: firebaseUserCredential.user!.photoURL!, email: firebaseUserCredential.user!.email!,  phoneNumber: firebaseUserCredential.user!.phoneNumber,));
+    SharedPreferencesUtil.saveString('userId', firebaseUserCredential.user!.uid);
+    SharedPreferencesUtil.saveString('userName', googleUser.displayName!);
+
     return SocialValue(
-      fullName: googleUser.displayName ?? 'user.askany.google',
+      fullName: googleUser.displayName ?? 'user.highbraintech.google',
       googleId: firebaseUserCredential.user!.uid,
     );
   } catch (e) {
+    debugPrint('Exception while signInWithGoogle : $e');
     return null;
   }
 }

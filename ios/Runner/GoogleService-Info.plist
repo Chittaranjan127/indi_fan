@@ -3,21 +3,21 @@
 <plist version="1.0">
 <dict>
 	<key>CLIENT_ID</key>
-	<string>38681732543-a1c15bbp5qra3vdf4c26f8h4qj4mp8hm.apps.googleusercontent.com</string>
+	<string>621946279364-q9s81fkaung1sai936fp11pbg5k55ma3.apps.googleusercontent.com</string>
 	<key>REVERSED_CLIENT_ID</key>
-	<string>com.googleusercontent.apps.38681732543-a1c15bbp5qra3vdf4c26f8h4qj4mp8hm</string>
+	<string>com.googleusercontent.apps.621946279364-q9s81fkaung1sai936fp11pbg5k55ma3</string>
 	<key>API_KEY</key>
-	<string>AIzaSyBvr4N6_c5AtQfWH44EU8QHDH-sPgGtr9A</string>
+	<string>AIzaSyAbeQ9p77-1bgE1FCXlPNEEDn0cKPFrJ8o</string>
 	<key>GCM_SENDER_ID</key>
-	<string>38681732543</string>
+	<string>621946279364</string>
 	<key>PLIST_VERSION</key>
 	<string>1</string>
 	<key>BUNDLE_ID</key>
-	<string>com.streams.kit</string>
+	<string>in.highbraintech</string>
 	<key>PROJECT_ID</key>
-	<string>streamos-2c5cd</string>
+	<string>indifanlivestream</string>
 	<key>STORAGE_BUCKET</key>
-	<string>streamos-2c5cd.appspot.com</string>
+	<string>indifanlivestream.appspot.com</string>
 	<key>IS_ADS_ENABLED</key>
 	<false></false>
 	<key>IS_ANALYTICS_ENABLED</key>
@@ -29,6 +29,6 @@
 	<key>IS_SIGNIN_ENABLED</key>
 	<true></true>
 	<key>GOOGLE_APP_ID</key>
-	<string>1:38681732543:ios:d0c2f5a9f52dd059a5ad0a</string>
+	<string>1:621946279364:ios:bb7ec00a0fd8d41cb98091</string>
 </dict>
 </plist>

@@ -28,7 +28,7 @@ class EditProfileScreen extends StatefulWidget {
 
 class _EditProfileScreenState extends State<EditProfileScreen> {
   final UserModel user = UserModel(
-      id: "",
+      userId: "",
       urlToImage:
           "https://donoithatdanang.com/wp-content/uploads/2021/11/mang-hinh-khoa-cute-08.jpg",
       fullName: "Tony Tony Chopper",
@@ -37,7 +37,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
       posts: 1000,
       followers: 9400,
       followings: 8543337121,
-      listFields: null);
+      listFields: null, email: '');
 
   @override
   Widget build(BuildContext context) {
@@ -180,7 +180,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                     handleSelectGender: (value) {
                       if (value != null) {
                         setState(() {
-                          user.gender = value == "Man" ? true : false;
+                          user.gender = value == "Man" ? Gender.male : Gender.female;
                         });
                       }
                     },
@@ -188,7 +188,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                 );
               },
               title: "Gender",
-              value: user.gender ? "Man" : "Woman",
+              value: user.gender.toString(),
             ),
             SizedBox(height: 2.sp),
             ProfileEditWidget(

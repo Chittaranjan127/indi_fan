@@ -36,9 +36,7 @@ class _StreamScreenState extends State<StreamScreen> {
                     decoration: const BoxDecoration(
                       shape: BoxShape.circle,
                       image: DecorationImage(
-                        image: NetworkImage(
-                          'https://png.pngtree.com/png-vector/20191101/ourmid/pngtree-cartoon-color-simple-male-avatar-png-image_1934459.jpg',
-                        ),
+                        image: AssetImage("images/avatar.jpeg")
                       ),
                     ),
                   )

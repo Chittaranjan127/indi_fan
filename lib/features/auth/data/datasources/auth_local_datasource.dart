@@ -4,29 +4,29 @@ import 'package:injectable/injectable.dart';
 
 // Project imports:
 import 'package:streamskit_mobile/core/app/constant/storage_keys.dart';
+import 'package:streamskit_mobile/core/util/SharedPreferencesUtil.dart';
 
 abstract class AuthLocalDataSource {
-  String? getAccessToken();
+  String? getAccessToken() ;
   void saveAccessToken(String accessToken);
   void clearAccessToken();
 }
 
 @LazySingleton(as: AuthLocalDataSource)
 class AuthLocalDataSourceImpl implements AuthLocalDataSource {
-  final Box hiveBox = Hive.box(StorageKeys.boxAuth);
 
   @override
   void clearAccessToken() {
-    hiveBox.delete(StorageKeys.accessToken);
+    SharedPreferencesUtil.remove(StorageKeys.accessToken);
   }
 
   @override
-  String? getAccessToken() {
-    return hiveBox.get(StorageKeys.accessToken);
+  String getAccessToken() {
+    return SharedPreferencesUtil.getString(StorageKeys.accessToken).toString();
   }
 
   @override
-  void saveAccessToken(String accessToken) {
-    hiveBox.put(StorageKeys.accessToken, accessToken);
+  Future<void> saveAccessToken(String accessToken) async {
+    SharedPreferencesUtil.saveString(StorageKeys.accessToken, accessToken);
   }
 }
