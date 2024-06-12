@@ -10,13 +10,20 @@ import 'dart:convert';
 
 import 'dart:convert';
 
+import 'dart:convert';
+
 enum Gender {
   male,
   female,
   other,
 }
 
-class UserModel {
+abstract class Model {
+  Map<String, dynamic> toMap();
+  String toJson() => json.encode(toMap());
+}
+
+class UserModel implements Model {
   String userId;
   String fullName;
   String urlToImage;
@@ -53,48 +60,13 @@ class UserModel {
     this.totalViews,
   });
 
-  UserModel copyWith({
-    String? userId,
-    String? fullName,
-    String? urlToImage,
-    String? description,
-    String? phoneNumber,
-    Gender? gender,
-    DateTime? birthday,
-    int? posts,
-    int? followings,
-    int? followers,
-    List<String>? listFields,
-    bool? isLiveStream,
-    bool? isHost,
-    bool? isVerified,
-    int? totalViews,
-  }) {
-    return UserModel(
-      userId: userId ?? this.userId,
-      fullName: fullName ?? this.fullName,
-      urlToImage: urlToImage ?? this.urlToImage,
-      description: description ?? this.description,
-      phoneNumber: phoneNumber ?? this.phoneNumber,
-      gender: gender ?? this.gender,
-      birthday: birthday ?? this.birthday,
-      posts: posts ?? this.posts,
-      followings: followings ?? this.followings,
-      followers: followers ?? this.followers,
-      listFields: listFields ?? this.listFields,
-      isLiveStream: isLiveStream ?? this.isLiveStream,
-      isHost: isHost ?? this.isHost,
-      isVerified: isVerified ?? this.isVerified,
-      totalViews: totalViews ?? this.totalViews,
-      email: email,
-    );
-  }
-
+  @override
   Map<String, dynamic> toMap() {
     return {
       'userId': userId,
       'fullName': fullName,
       'urlToImage': urlToImage,
+      'email': email,
       'description': description,
       'phoneNumber': phoneNumber,
       'gender': gender.index,
@@ -102,7 +74,7 @@ class UserModel {
       'posts': posts,
       'followings': followings,
       'followers': followers,
-      'listFields': listFields,
+      'listFields': listFields ?? [],
       'isLiveStream': isLiveStream,
       'isHost': isHost,
       'isVerified': isVerified,
@@ -115,24 +87,25 @@ class UserModel {
       userId: map['userId'] ?? '',
       fullName: map['fullName'] ?? '',
       urlToImage: map['urlToImage'] ?? '',
+      email: map['email'] ?? '',
       description: map['description'],
       phoneNumber: map['phoneNumber'],
-      gender: Gender.values[map['gender'] ?? 2], // Assuming default to 'other'
+      gender: Gender.values[map['gender'] ?? 2],
       birthday: map['birthday'] != null
           ? DateTime.fromMillisecondsSinceEpoch(map['birthday'])
           : null,
       posts: map['posts']?.toInt(),
       followings: map['followings']?.toInt(),
       followers: map['followers']?.toInt(),
-      listFields: List<String>.from(map['listFields']),
+      listFields: map['listFields'] != null ? List<String>.from(map['listFields']) : [],
       isLiveStream: map['isLiveStream'] ?? false,
       isHost: map['isHost'] ?? false,
       isVerified: map['isVerified'] ?? false,
       totalViews: map['totalViews']?.toInt(),
-      email: map['email'],
     );
   }
 
+  @override
   String toJson() => json.encode(toMap());
 
   factory UserModel.fromJson(String source) =>

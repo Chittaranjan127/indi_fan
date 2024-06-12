@@ -5,12 +5,13 @@ import 'package:flutter/material.dart';
 import 'package:streamskit_mobile/core/app/colors/app_color.dart';
 import 'package:streamskit_mobile/core/util/custom_image/custom_netword_image.dart';
 import 'package:streamskit_mobile/core/util/sizer_custom/sizer.dart';
+import 'package:streamskit_mobile/features/home/data/model/live_stream_model.dart';
 import 'package:streamskit_mobile/features/home/data/model/user_model.dart';
 
 class UserWidget extends StatelessWidget {
-  final UserModel userModel;
+  final LiveStreamModel liveStreamModel;
 
-  const UserWidget({super.key, required this.userModel});
+  const UserWidget({super.key, required this.liveStreamModel});
 
   @override
   Widget build(BuildContext context) {
@@ -26,30 +27,24 @@ class UserWidget extends StatelessWidget {
                   shape: BoxShape.circle,
                   border: Border.all(
                     width: 1.2.sp,
-                    color: userModel.isLiveStream ? colorPink : colorBlack2,
+                    color: liveStreamModel.isLiveStreamEnded
+                        ? colorBlack2
+                        : colorPink,
                   ),
                 ),
                 child: CustomNetworkImage(
                   height: 42.sp,
                   width: 42.sp,
-                  urlToImage: userModel.urlToImage,
+                  urlToImage: liveStreamModel.hostImageUrl,
                   shape: BoxShape.circle,
                 ),
               ),
               SizedBox(height: 6.sp),
-              Text(
-                userModel.fullName,
-                style: TextStyle(
-                  color: userModel.isLiveStream ? mCL : fCL,
-                  fontSize: 10.sp,
-                  fontWeight: userModel.isLiveStream ? FontWeight.w500 : null,
-                ),
-              )
             ],
           ),
         ),
         Visibility(
-          visible: userModel.isLiveStream,
+          visible: liveStreamModel.isLiveStreamEnded ? false : true,
           child: Positioned(
             right: 15,
             child: Container(

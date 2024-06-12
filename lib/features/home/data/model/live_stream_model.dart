@@ -1,113 +1,70 @@
-// ignore_for_file: public_member_api_docs, sort_constructors_first
-
-// Dart imports:
 import 'dart:convert';
 
-// Flutter imports:
-import 'package:flutter/material.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 
 class LiveStreamModel {
-  final int peopleParticipant;
-  final int type;
-  final String urlToImage;
+  String streamId;
+  String userId;
+  String hostName;
+  String hostImageUrl;
+  DateTime startTime;
+  bool isLiveStreamEnded;
+  DateTime? endTime;
+  int views;
+  int audienceCount;
+  double watchHours;
+  double totalRevenue;
+
   LiveStreamModel({
-    required this.peopleParticipant,
-    required this.type,
-    required this.urlToImage,
+    required this.streamId,
+    required this.userId,
+    required this.hostName,
+    required this.hostImageUrl,
+    required this.startTime,
+    this.isLiveStreamEnded = false,
+    this.endTime,
+    this.views = 0,
+    this.audienceCount = 0,
+    this.watchHours = 0.0,
+    this.totalRevenue = 0.0,
   });
 
-  LiveStreamModel copyWith({
-    int? peopleParticipant,
-    int? type,
-    String? urlToImage,
-  }) {
-    return LiveStreamModel(
-      peopleParticipant: peopleParticipant ?? this.peopleParticipant,
-      type: type ?? this.type,
-      urlToImage: urlToImage ?? this.urlToImage,
-    );
-  }
-
   Map<String, dynamic> toMap() {
-    return <String, dynamic>{
-      'peopleParticipant': peopleParticipant,
-      'type': type,
-      'urlToImage': urlToImage,
+    return {
+      'streamId': streamId,
+      'userId': userId,
+      'hostName': hostName,
+      'hostImageUrl': hostImageUrl,
+      'startTime': startTime.millisecondsSinceEpoch,
+      'isLiveStreamEnded': isLiveStreamEnded,
+      'endTime': endTime?.millisecondsSinceEpoch,
+      'views': views,
+      'audienceCount': audienceCount,
+      'watchHours': watchHours,
+      'totalRevenue': totalRevenue,
     };
   }
 
   factory LiveStreamModel.fromMap(Map<String, dynamic> map) {
     return LiveStreamModel(
-      peopleParticipant: map['peopleParticipant'] as int,
-      type: map['type'] as int,
-      urlToImage: map['urlToImage'] as String,
+      streamId: map['streamId'] ?? '',
+      userId: map['userId'] ?? '',
+      hostName: map['hostName'] ?? '',
+      hostImageUrl: map['hostImageUrl'] ?? '',
+      startTime: (map['startTime'] as Timestamp).toDate(),
+      isLiveStreamEnded: map['isLiveStreamEnded'] ?? false,
+      endTime: map['endTime'] != null
+          ? (map['endTime'] as Timestamp).toDate()
+          : null,
+      views: map['views']?.toInt() ?? 0,
+      audienceCount: map['audienceCount']?.toInt() ?? 0,
+      watchHours: map['watchHours']?.toDouble() ?? 0.0,
+      totalRevenue: map['totalRevenue']?.toDouble() ?? 0.0,
     );
   }
 
   String toJson() => json.encode(toMap());
 
   factory LiveStreamModel.fromJson(String source) =>
-      LiveStreamModel.fromMap(json.decode(source) as Map<String, dynamic>);
-
-  @override
-  String toString() =>
-      'LiveStreamModel(peopleParticipant: $peopleParticipant, type: $type, urlToImage: $urlToImage)';
-
-  @override
-  bool operator ==(covariant LiveStreamModel other) {
-    if (identical(this, other)) return true;
-
-    return other.peopleParticipant == peopleParticipant &&
-        other.type == type &&
-        other.urlToImage == urlToImage;
-  }
-
-  @override
-  int get hashCode =>
-      peopleParticipant.hashCode ^ type.hashCode ^ urlToImage.hashCode;
-
-  String get getTitleType {
-    switch (type) {
-      case 1:
-        return 'Game';
-      case 2:
-        return 'Review';
-      case 3:
-        return 'Music';
-    }
-    return '';
-  }
-
-  Color get getColorType {
-    switch (type) {
-      case 1:
-        return Colors.redAccent;
-      case 2:
-        return Colors.purpleAccent;
-      case 3:
-        return Colors.blueAccent;
-    }
-    return Colors.redAccent;
-  }
+      LiveStreamModel.fromMap(json.decode(source));
 }
-
-List<LiveStreamModel> listLiveStreamFake = [
-  LiveStreamModel(peopleParticipant: 910, type: 1, urlToImage: urlImageGame),
-  LiveStreamModel(peopleParticipant: 910, type: 2, urlToImage: urlImageReview),
-  LiveStreamModel(peopleParticipant: 910, type: 3, urlToImage: urlImageMusic),
-  LiveStreamModel(peopleParticipant: 910, type: 2, urlToImage: urlImageReview),
-  LiveStreamModel(peopleParticipant: 910, type: 3, urlToImage: urlImageMusic),
-  LiveStreamModel(peopleParticipant: 910, type: 2, urlToImage: urlImageReview),
-  LiveStreamModel(peopleParticipant: 910, type: 3, urlToImage: urlImageMusic),
-  LiveStreamModel(peopleParticipant: 910, type: 1, urlToImage: urlImageGame),
-  LiveStreamModel(peopleParticipant: 910, type: 2, urlToImage: urlImageReview),
-  LiveStreamModel(peopleParticipant: 910, type: 1, urlToImage: urlImageGame),
-  LiveStreamModel(peopleParticipant: 910, type: 2, urlToImage: urlImageReview),
-];
-
-String urlImageGame =
-    'https://kenh14cdn.com/2020/10/30/photo-1-1604044340274364328631.png';
-String urlImageReview =
-    'https://media.istockphoto.com/photos/cybersport-gamer-have-live-stream-picture-id1306424929?k=20&m=1306424929&s=612x612&w=0&h=tN9CafElP0EZHQG4s14zO_Ko0OriOzCt4fOc2q9lQz4=';
-String urlImageMusic =
-    'https://images.unsplash.com/photo-1653469894816-c517bc3427a7?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8N3x8bGl2ZXN0cmVhbSUyMG11c2ljfGVufDB8fDB8fA%3D%3D&auto=format&fit=crop&w=500&q=60';

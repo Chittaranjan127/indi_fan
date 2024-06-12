@@ -24,12 +24,12 @@ class FireStoreUserImpl implements FireStoreUser {
   @override
   Future<UserModel?> getUserById(String userId) async {
     try {
-      DocumentSnapshot<Map<String, dynamic>> snapshot = await _firestore.collection('users').doc(userId).get();
+      DocumentSnapshot<Map<String, dynamic>> snapshot =
+          await _firestore.collection('users').doc(userId).get();
       if (snapshot.exists && snapshot.data() != null) {
         return UserModel.fromMap(snapshot.data()!);
-      } else {
-        return null;
       }
+      return null;
     } catch (e) {
       throw Exception('Error getting user: $e');
     }
