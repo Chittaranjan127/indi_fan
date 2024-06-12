@@ -32,7 +32,7 @@ class _StreamScreenState extends State<StreamScreen> {
   void initState() {
     super.initState();
     startTime = DateTime.now();
-    _insertLiveStreamData();
+    //_insertLiveStreamData();
   }
 
   Future<void> _insertLiveStreamData() async {

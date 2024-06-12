@@ -1,5 +1,7 @@
 import 'dart:convert';
 
+import 'package:cloud_firestore/cloud_firestore.dart';
+
 class LiveStreamModel {
   String streamId;
   String userId;
@@ -49,10 +51,10 @@ class LiveStreamModel {
       userId: map['userId'] ?? '',
       hostName: map['hostName'] ?? '',
       hostImageUrl: map['hostImageUrl'] ?? '',
-      startTime: DateTime.fromMillisecondsSinceEpoch(map['startTime']),
+      startTime: (map['startTime'] as Timestamp).toDate(),
       isLiveStreamEnded: map['isLiveStreamEnded'] ?? false,
       endTime: map['endTime'] != null
-          ? DateTime.fromMillisecondsSinceEpoch(map['endTime'])
+          ? (map['endTime'] as Timestamp).toDate()
           : null,
       views: map['views']?.toInt() ?? 0,
       audienceCount: map['audienceCount']?.toInt() ?? 0,
