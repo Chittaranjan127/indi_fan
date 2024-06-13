@@ -3,6 +3,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:streamskit_mobile/features/home/data/model/user_model.dart';
 import 'package:streamskit_mobile/features/home/presentation/widgets/user_widget.dart';
 import 'package:streamskit_mobile/features/stream/presentation/screens/join_stream_screen.dart';
+import '../../../stream/presentation/screens/stream_screen.dart';
 import '../../data/datasources/remote_live_stream_source.dart';
 import '../../data/model/live_stream_model.dart';
 
@@ -46,7 +47,8 @@ class _ListHostsLiveState extends State<ListHostsLive> {
                 child: UserWidget(liveStreamModel: liveStream, onClick: () {
                   Navigator.of(context).push(
                     MaterialPageRoute(
-                      builder: (context) => JoinStreamScreen(
+                      builder: (context) => StreamScreen(
+                        isHost: false,
                         user: widget.user,
                         streamId: liveStream.streamId,
                       ),

@@ -17,19 +17,43 @@ import '../../../home/data/model/live_stream_model.dart';
 import '../../../home/data/model/user_model.dart';
 
 class StreamScreen extends StatefulWidget {
-  final UserModel user;
+  final UserModel? user;
   final String streamId;
-  StreamScreen({super.key, required this.user, required this.streamId});
+  final bool isHost;
+  StreamScreen(
+      {super.key, this.user, required this.streamId, required this.isHost});
 
   @override
   State<StreamScreen> createState() => _StreamScreenState();
 }
 
 class _StreamScreenState extends State<StreamScreen> {
-
   @override
   void initState() {
+    //if (widget.isHost) _insertLiveStreamData();
     super.initState();
+  }
+
+  Future<void> _insertLiveStreamData() async {
+    LiveStreamModel liveStream = LiveStreamModel(
+      streamId: widget.streamId,
+      userId: widget.user!.userId,
+      hostName: widget.user!.fullName,
+      hostImageUrl: widget.user!.urlToImage,
+      startTime: DateTime.now(),
+      isLiveStreamEnded: false,
+      endTime: null,
+      views: 0,
+      audienceCount: 0,
+      watchHours: 0.0,
+      totalRevenue: 0.0,
+    );
+
+    FirebaseFirestore firestore = FirebaseFirestore.instance;
+    await firestore
+        .collection('liveStreams')
+        .doc(widget.streamId)
+        .set(liveStream.toMap());
   }
 
   @override
@@ -38,8 +62,8 @@ class _StreamScreenState extends State<StreamScreen> {
       child: ZegoUIKitPrebuiltLiveStreaming(
         appID: LiveStreamConstants.zegocloud_APP_ID,
         appSign: LiveStreamConstants.zegocloud_APP_SIGN,
-        userID: widget.user.userId,
-        userName: widget.user.fullName,
+        userID: widget.user!.userId,
+        userName: widget.user!.fullName,
         liveID: widget.streamId,
         events: ZegoUIKitPrebuiltLiveStreamingEvents(
           onLeaveConfirmation: (
@@ -73,7 +97,9 @@ class _StreamScreenState extends State<StreamScreen> {
             );
           },
         ),
-        config: ZegoUIKitPrebuiltLiveStreamingConfig.host()
+        config: widget.isHost
+            ? ZegoUIKitPrebuiltLiveStreamingConfig.host()
+            : ZegoUIKitPrebuiltLiveStreamingConfig.audience()
           ..avatarBuilder = (BuildContext context, Size size,
               ZegoUIKitUser? user, Map extraInfo) {
             return user != null

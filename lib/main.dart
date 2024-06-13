@@ -13,6 +13,8 @@ import 'package:streamskit_mobile/core/app/application.dart';
 import 'package:streamskit_mobile/features/app/app.dart';
 import 'package:streamskit_mobile/features/app/bloc/app_bloc.dart';
 
+import 'core/app/PlatformChannel.dart';
+
 void main(List<String> args) async {
   await runZonedGuarded(() async {
     WidgetsFlutterBinding.ensureInitialized();
@@ -20,7 +22,7 @@ void main(List<String> args) async {
         1024 * 1024 * 300; // 300 MB
 
     await Application.initialAppLication();
-
+    PlatformChannel.initialize();
     await Firebase.initializeApp();
     FlutterError.onError = FirebaseCrashlytics.instance.recordFlutterError;
     runApp(

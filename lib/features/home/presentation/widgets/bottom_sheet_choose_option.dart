@@ -22,9 +22,11 @@ class BottomSheetChooseOptionHome extends StatelessWidget {
   void _startLiveStream(BuildContext context) {
     UtilLogger.log('inside _startLiveStream');
     String streamId = _uuid.v4();
+    debugPrint('Stream Id $streamId');
     Navigator.of(context).push(
       MaterialPageRoute(
         builder: (context) => StreamScreen(
+          isHost: true,
           user: user,
           streamId: streamId,
         ),
