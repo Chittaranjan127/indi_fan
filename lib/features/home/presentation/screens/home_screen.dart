@@ -12,8 +12,11 @@ import 'package:streamskit_mobile/features/home/presentation/widgets/button_circ
 import 'package:streamskit_mobile/features/home/presentation/widgets/list_category_home.dart';
 import 'package:streamskit_mobile/features/home/presentation/widgets/list_hosts_live.dart';
 
+import '../../data/model/user_model.dart';
+
 class HomeScreen extends StatefulWidget {
-  const HomeScreen({super.key});
+  final UserModel? user;
+  const HomeScreen({super.key, this.user});
 
   @override
   State<HomeScreen> createState() => _HomeScreenState();
@@ -77,7 +80,7 @@ class _HomeScreenState extends State<HomeScreen> {
         child: Column(
           children: [
             SizedBox(height: 12.sp),
-            ListHostsLive(),
+            ListHostsLive(user: widget.user,),
             SizedBox(height: 12.sp),
             const ListCategoryHome(),
             SizedBox(height: 12.sp),

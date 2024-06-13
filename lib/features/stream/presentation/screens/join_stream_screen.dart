@@ -16,19 +16,21 @@ import 'package:zego_uikit_prebuilt_live_streaming/zego_uikit_prebuilt_live_stre
 import '../../../home/data/model/live_stream_model.dart';
 import '../../../home/data/model/user_model.dart';
 
-class StreamScreen extends StatefulWidget {
-  final UserModel user;
+class JoinStreamScreen extends StatefulWidget {
+  final UserModel? user;
   final String streamId;
-  StreamScreen({super.key, required this.user, required this.streamId});
+  JoinStreamScreen({super.key, this.user, required this.streamId});
 
   @override
-  State<StreamScreen> createState() => _StreamScreenState();
+  State<JoinStreamScreen> createState() => _JoinStreamScreenState();
 }
 
-class _StreamScreenState extends State<StreamScreen> {
-
+class _JoinStreamScreenState extends State<JoinStreamScreen> {
   @override
   void initState() {
+    debugPrint('stream id for joining : ${widget.streamId}');
+    debugPrint('stream id for joining : ${widget.user!.userId}');
+    debugPrint('stream id for joining : ${widget.user!.fullName}');
     super.initState();
   }
 
@@ -38,14 +40,12 @@ class _StreamScreenState extends State<StreamScreen> {
       child: ZegoUIKitPrebuiltLiveStreaming(
         appID: LiveStreamConstants.zegocloud_APP_ID,
         appSign: LiveStreamConstants.zegocloud_APP_SIGN,
-        userID: widget.user.userId,
-        userName: widget.user.fullName,
+        userID: widget.user!.userId,
+        userName: widget.user!.fullName,
         liveID: widget.streamId,
         events: ZegoUIKitPrebuiltLiveStreamingEvents(
           onLeaveConfirmation: (
             ZegoLiveStreamingLeaveConfirmationEvent event,
-
-            /// defaultAction to return to the previous page
             Future<bool> Function() defaultAction,
           ) async {
             return await showDialog(
@@ -55,7 +55,7 @@ class _StreamScreenState extends State<StreamScreen> {
                 return AlertDialog(
                   backgroundColor: Colors.blue[900]!.withOpacity(0.9),
                   title: const Text(
-                      "Are you sure want to end this live stream ?",
+                      "Are you sure want to leave this live stream ?",
                       style: TextStyle(color: Colors.white70)),
                   actions: [
                     ElevatedButton(
@@ -73,7 +73,7 @@ class _StreamScreenState extends State<StreamScreen> {
             );
           },
         ),
-        config: ZegoUIKitPrebuiltLiveStreamingConfig.host()
+        config: ZegoUIKitPrebuiltLiveStreamingConfig.audience()
           ..avatarBuilder = (BuildContext context, Size size,
               ZegoUIKitUser? user, Map extraInfo) {
             return user != null

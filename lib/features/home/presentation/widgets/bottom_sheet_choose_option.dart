@@ -11,8 +11,8 @@ import 'package:streamskit_mobile/core/util/styles/profile_style.dart';
 import 'package:streamskit_mobile/features/profile/presentation/widgets/row_icon_text.dart';
 import 'package:uuid/uuid.dart';
 
-import '../../../home/data/model/user_model.dart';
-import '../screens/stream_screen.dart';
+import '../../data/model/user_model.dart';
+import '../../../stream/presentation/screens/stream_screen.dart';
 
 class BottomSheetChooseOptionHome extends StatelessWidget {
   final UserModel user;

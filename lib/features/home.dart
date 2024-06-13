@@ -13,13 +13,14 @@ import 'package:streamskit_mobile/core/app/colors/app_color.dart';
 import 'package:streamskit_mobile/core/util/SharedPreferencesUtil.dart';
 import 'package:streamskit_mobile/core/util/common/touchable_opacity.dart';
 import 'package:streamskit_mobile/core/util/sizer_custom/sizer.dart';
+import 'package:streamskit_mobile/features/auth/presentation/screens/sign_in_screen.dart';
 import 'package:streamskit_mobile/features/chat/presentation/screens/chat_screen.dart';
 import 'package:streamskit_mobile/features/home/data/model/user_model.dart';
 import 'package:streamskit_mobile/features/home/presentation/screens/home_screen.dart';
 import 'package:streamskit_mobile/features/profile/presentation/screens/profile_screen.dart';
 import 'package:streamskit_mobile/features/search/presentation/screens/search_screen.dart';
 import 'package:streamskit_mobile/features/stream/presentation/screens/stream_screen.dart';
-import 'package:streamskit_mobile/features/stream/presentation/widgets/bottom_sheet_choose_option.dart';
+import 'package:streamskit_mobile/features/home/presentation/widgets/bottom_sheet_choose_option.dart';
 
 import '../core/util/firestore/firestore_user.dart';
 
@@ -32,14 +33,6 @@ class Home extends StatefulWidget {
 
 class _HomeState extends State<Home> {
   UserModel? _user;
-
-  final List<Widget> _tabs = [
-    const HomeScreen(),
-    const SearchScreen(),
-    const HomeScreen(),
-    const ChatScreen(),
-    const ProfileScreen(),
-  ];
   int _currentIndex = 0;
 
   @override
@@ -55,7 +48,12 @@ class _HomeState extends State<Home> {
 
   Future<void> _loadUserId() async {
     String? userId = await SharedPreferencesUtil.getString('userId');
-    _loadUserData(userId);
+    if (userId != null) {
+      _loadUserData(userId);
+    } else {
+      SharedPreferencesUtil.remove('userId');
+      MaterialPageRoute(builder: (context) => const SignInScreen());
+    }
   }
 
   Future<void> _loadUserData(String? userId) async {
@@ -75,36 +73,48 @@ class _HomeState extends State<Home> {
 
   @override
   Widget build(BuildContext context) {
+    final List<Widget> _tabs = [
+      HomeScreen(
+        user: _user,
+      ),
+      const SearchScreen(),
+      HomeScreen(
+        user: _user,
+      ),
+      const ChatScreen(),
+      const ProfileScreen(),
+    ];
     return Scaffold(
       body: Stack(
         children: [
-          _tabs[_currentIndex], // Ensure _tabs is defined
-          Align(
-            alignment: Alignment.bottomCenter,
-            child: Container(
-              margin: EdgeInsets.only(bottom: 30.sp),
-              child: ClipRRect(
-                borderRadius: BorderRadius.vertical(
-                  top: Radius.circular(100.sp),
-                ),
-                child: BackdropFilter(
-                  filter: ImageFilter.blur(sigmaX: 5, sigmaY: 10),
-                  child: Container(
-                    padding: EdgeInsets.all(8.sp),
-                    margin: EdgeInsets.all(8.sp),
-                    decoration: BoxDecoration(
-                      shape: BoxShape.circle,
-                      color: Colors.black.withOpacity(0.3),
-                    ),
-                    child: SizedBox(
-                      height: 30.sp,
-                      width: 30.sp,
+          _tabs[_currentIndex],
+          if (_user != null && _user!.isHost)
+            Align(
+              alignment: Alignment.bottomCenter,
+              child: Container(
+                margin: EdgeInsets.only(bottom: 30.sp),
+                child: ClipRRect(
+                  borderRadius: BorderRadius.vertical(
+                    top: Radius.circular(100.sp),
+                  ),
+                  child: BackdropFilter(
+                    filter: ImageFilter.blur(sigmaX: 5, sigmaY: 10),
+                    child: Container(
+                      padding: EdgeInsets.all(8.sp),
+                      margin: EdgeInsets.all(8.sp),
+                      decoration: BoxDecoration(
+                        shape: BoxShape.circle,
+                        color: Colors.black.withOpacity(0.3),
+                      ),
+                      child: SizedBox(
+                        height: 30.sp,
+                        width: 30.sp,
+                      ),
                     ),
                   ),
                 ),
               ),
             ),
-          ),
           Align(
             alignment: Alignment.bottomCenter,
             child: ClipRRect(
@@ -156,7 +166,9 @@ class _HomeState extends State<Home> {
                   showModalBottomSheet(
                       backgroundColor: Colors.transparent,
                       context: context,
-                      builder: (context) => BottomSheetChooseOptionHome(user: _user!,));
+                      builder: (context) => BottomSheetChooseOptionHome(
+                            user: _user!,
+                          ));
                 },
                 child: Container(
                   padding: EdgeInsets.all(13.sp),

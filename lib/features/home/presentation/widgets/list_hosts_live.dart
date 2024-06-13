@@ -1,10 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:streamskit_mobile/features/home/data/model/user_model.dart';
 import 'package:streamskit_mobile/features/home/presentation/widgets/user_widget.dart';
+import 'package:streamskit_mobile/features/stream/presentation/screens/join_stream_screen.dart';
 import '../../data/datasources/remote_live_stream_source.dart';
 import '../../data/model/live_stream_model.dart';
 
 class ListHostsLive extends StatefulWidget {
+  final UserModel? user;
+
+  const ListHostsLive({Key? key, this.user}) : super(key: key);
+
   @override
   _ListHostsLiveState createState() => _ListHostsLiveState();
 }
@@ -29,15 +35,24 @@ class _ListHostsLiveState extends State<ListHostsLive> {
 
         var liveStreams = snapshot.data!.where((stream) => !stream.isLiveStreamEnded).toList();
         return SizedBox(
-          height: 100, // Adjust the height as needed
+          height: 100,
           child: ListView.builder(
             scrollDirection: Axis.horizontal,
             itemCount: liveStreams.length,
             itemBuilder: (context, index) {
-              var liveStream = liveStreams[index];
+              LiveStreamModel liveStream = liveStreams[index];
               return Padding(
                 padding: const EdgeInsets.all(8.0),
-                child: UserWidget(liveStreamModel: liveStream),
+                child: UserWidget(liveStreamModel: liveStream, onClick: () {
+                  Navigator.of(context).push(
+                    MaterialPageRoute(
+                      builder: (context) => JoinStreamScreen(
+                        user: widget.user,
+                        streamId: liveStream.streamId,
+                      ),
+                    ),
+                  );
+                },),
               );
             },
           ),
