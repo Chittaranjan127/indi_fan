@@ -76,65 +76,7 @@ class _ProfileScreenState extends State<ProfileScreen>
       child: Scaffold(
         extendBodyBehindAppBar: true,
         backgroundColor: Theme.of(context).colorScheme.surface,
-        appBar: PreferredSize(
-          preferredSize: const Size(double.infinity, kToolbarHeight),
-          child: AnimatedBuilder(
-            animation: _colorAnimationController,
-            builder: (context, child) => AppBar(
-              elevation: 0,
-              centerTitle: true,
-              title: Opacity(
-                opacity: colorTitleTween.value,
-                child: Row(
-                  children: [
-                    CustomNetworkImage(
-                      urlToImage: user.urlToImage,
-                      height: 25.sp,
-                      width: 25.sp,
-                    ),
-                    SizedBox(
-                      width: 10.sp,
-                    ),
-                    Text(
-                      "Tony Tony Chopper",
-                      style: text13mCL,
-                    ),
-                  ],
-                ),
-              ),
-              leading: !isMe
-                  ? Padding(
-                      padding: EdgeInsets.symmetric(horizontal: 16.sp),
-                      child: CircleIcon(
-                        onTap: () {
-                          AppNavigator.pop();
-                        },
-                        icon: PhosphorIcons.arrow_left,
-                        backgroundIcon: iconColorTween.value,
-                      ),
-                    )
-                  : null,
-              leadingWidth: 64.sp,
-              backgroundColor: colorTween.value,
-              actions: [
-                Padding(
-                  padding: EdgeInsets.symmetric(horizontal: 16.sp),
-                  child: CircleIcon(
-                    onTap: () {
-                      showModalBottomSheet(
-                          backgroundColor: Colors.transparent,
-                          context: context,
-                          builder: (context) =>
-                              const BottomSheetChooseOption());
-                    },
-                    icon: PhosphorIcons.dots_three,
-                    backgroundIcon: iconColorTween.value,
-                  ),
-                ),
-              ],
-            ),
-          ),
-        ),
+        appBar: profileAppBar(),
         body: NestedScrollView(
           controller: _scrollController,
           headerSliverBuilder: (context, value) {
@@ -232,6 +174,68 @@ class _ProfileScreenState extends State<ProfileScreen>
         ),
       ),
     );
+  }
+
+  PreferredSize profileAppBar() {
+    return PreferredSize(
+        preferredSize: const Size(double.infinity, kToolbarHeight),
+        child: AnimatedBuilder(
+          animation: _colorAnimationController,
+          builder: (context, child) => AppBar(
+            elevation: 0,
+            centerTitle: true,
+            title: Opacity(
+              opacity: colorTitleTween.value,
+              child: Row(
+                children: [
+                  CustomNetworkImage(
+                    urlToImage: user.urlToImage,
+                    height: 25.sp,
+                    width: 25.sp,
+                  ),
+                  SizedBox(
+                    width: 10.sp,
+                  ),
+                  Text(
+                    "Tony Tony Chopper",
+                    style: text13mCL,
+                  ),
+                ],
+              ),
+            ),
+            leading: !isMe
+                ? Padding(
+                    padding: EdgeInsets.symmetric(horizontal: 16.sp),
+                    child: CircleIcon(
+                      onTap: () {
+                        AppNavigator.pop();
+                      },
+                      icon: PhosphorIcons.arrow_left,
+                      backgroundIcon: iconColorTween.value,
+                    ),
+                  )
+                : null,
+            leadingWidth: 64.sp,
+            backgroundColor: colorTween.value,
+            actions: [
+              Padding(
+                padding: EdgeInsets.symmetric(horizontal: 16.sp),
+                child: CircleIcon(
+                  onTap: () {
+                    showModalBottomSheet(
+                        backgroundColor: Colors.transparent,
+                        context: context,
+                        builder: (context) =>
+                            const BottomSheetChooseOption());
+                  },
+                  icon: PhosphorIcons.dots_three,
+                  backgroundIcon: iconColorTween.value,
+                ),
+              ),
+            ],
+          ),
+        ),
+      );
   }
 
   ListLiveCardModel listLiveStream = ListLiveCardModel(
