@@ -29,7 +29,7 @@ class EditProfileScreen extends StatefulWidget {
 class _EditProfileScreenState extends State<EditProfileScreen> {
   final UserModel user = UserModel(
       userId: "",
-      urlToImage:
+      displayPictureUrl:
           "https://donoithatdanang.com/wp-content/uploads/2021/11/mang-hinh-khoa-cute-08.jpg",
       fullName: "Tony Tony Chopper",
       description:
@@ -37,7 +37,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
       posts: 1000,
       followers: 9400,
       followings: 8543337121,
-      listFields: null, email: '');
+      listFields: null, email: '', userName: '');
 
   @override
   Widget build(BuildContext context) {
@@ -77,7 +77,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                   builder: (context) => BottomSheetImage(
                     handleFinish: (val) {
                       setState(() {
-                        user.urlToImage = val;
+                        user.displayPictureUrl = val;
                       });
                     },
                   ),
@@ -99,7 +99,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                     ),
                     const Spacer(),
                     CustomNetworkImage(
-                      urlToImage: user.urlToImage,
+                      urlToImage: user.displayPictureUrl,
                       height: 36.sp,
                       width: 36.sp,
                     ),

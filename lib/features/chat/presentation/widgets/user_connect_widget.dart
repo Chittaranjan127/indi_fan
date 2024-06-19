@@ -33,7 +33,7 @@ class UserConnectWidget extends StatelessWidget {
                 child: CustomNetworkImage(
                   height: 45.sp,
                   width: 45.sp,
-                  urlToImage: userModel.urlToImage,
+                  urlToImage: userModel.displayPictureUrl,
                   shape: BoxShape.circle,
                 ),
               ),

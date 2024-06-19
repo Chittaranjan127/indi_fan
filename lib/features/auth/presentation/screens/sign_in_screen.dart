@@ -35,11 +35,11 @@ class _SignInScreenState extends State<SignInScreen> {
                 children: [
                   SizedBox(height: 10.sp),
                   Image.asset(
-                    launcherIcon,
-                    height: 40.sp,
-                    width: 40.sp,
+                    appIcon,
+                    height: 60.sp,
+                    width: 60.sp,
                   ),
-                  SizedBox(height: 48.sp),
+                  SizedBox(height: 38.sp),
                   Expanded(
                     child: Container(
                       padding: EdgeInsets.symmetric(
@@ -60,10 +60,10 @@ class _SignInScreenState extends State<SignInScreen> {
                                   ),
                               children: [
                                 const TextSpan(
-                                  text: 'Sign In for\nstarting become\n',
+                                  text: 'Watch Your \nFavourite Creators ',
                                 ),
                                 TextSpan(
-                                  text: 'Streamer',
+                                  text: 'LIVE',
                                   style: TextStyle(color: colorPurple),
                                 ),
                               ],
@@ -71,7 +71,7 @@ class _SignInScreenState extends State<SignInScreen> {
                           ),
                           SizedBox(height: 16.sp),
                           Text(
-                            'Creative, entertaining application just for you. Come to StreamOS today,\nwe got you.',
+                            'Watch your favourite creators live. \nChat, Interact and unlimited fun.',
                             softWrap: true,
                             strutStyle: StrutStyle.disabled,
                             style: Theme.of(context)
@@ -83,7 +83,7 @@ class _SignInScreenState extends State<SignInScreen> {
                                   height: 1.4,
                                 ),
                           ),
-                          const Spacer(),
+                          SizedBox(height: 100.sp),
                           SignInButton(
                             title: 'Continue with Google',
                             iconAsset: logoGoogle,
@@ -95,60 +95,7 @@ class _SignInScreenState extends State<SignInScreen> {
                               );
                             },
                           ),
-                          SizedBox(height: 12.sp),
-                          SignInButton(
-                            title: 'Continue with Facebook',
-                            iconAsset: logoFacebook,
-                            onPressed: () {
-                              AppBloc.authBloc.add(
-                                const SignInEvent(
-                                  authType: AuthType.facebook,
-                                ),
-                              );
-                            },
-                          ),
-                          Padding(
-                            padding: EdgeInsets.symmetric(
-                              vertical: 12.sp,
-                            ),
-                            child: Row(
-                              children: [
-                                const Expanded(
-                                  child: Divider(
-                                    height: .25,
-                                    thickness: .25,
-                                  ),
-                                ),
-                                Padding(
-                                  padding:
-                                      EdgeInsets.symmetric(horizontal: 12.sp),
-                                  child: Text(
-                                    'or',
-                                    style:
-                                        Theme.of(context).textTheme.labelMedium,
-                                  ),
-                                ),
-                                const Expanded(
-                                  child: Divider(
-                                    height: .25,
-                                    thickness: .25,
-                                  ),
-                                ),
-                              ],
-                            ),
-                          ),
-                          SignInButton(
-                            title: 'Continue with Apple',
-                            iconAsset: logoApple,
-                            onPressed: () {
-                              AppBloc.authBloc.add(
-                                const SignInEvent(
-                                  authType: AuthType.apple,
-                                ),
-                              );
-                            },
-                          ),
-                          SizedBox(height: 20.sp),
+                          SizedBox(height: 40.sp),
                           RichText(
                             text: TextSpan(
                               style: Theme.of(context)

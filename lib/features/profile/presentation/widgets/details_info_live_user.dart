@@ -89,36 +89,6 @@ class _DetailInfoLiveUserWidgetState extends State<DetailInfoLiveUserWidget> {
                       ],
                     ),
                     const Spacer(),
-                    TouchableOpacity(
-                      onTap: () {
-                        setState(() {
-                          isFollowing = !isFollowing;
-                        });
-                      },
-                      child: Container(
-                        padding: EdgeInsets.symmetric(
-                          horizontal: 8.sp,
-                          vertical: 4.sp,
-                        ),
-                        decoration: BoxDecoration(
-                          color: Colors.blueAccent,
-                          shape: isFollowing
-                              ? BoxShape.circle
-                              : BoxShape.rectangle,
-                          borderRadius: isFollowing
-                              ? null
-                              : BorderRadius.circular(
-                                  15.sp,
-                                ),
-                        ),
-                        child: isFollowing
-                            ? const Icon(Icons.how_to_reg_outlined)
-                            : Text(
-                                "Follow",
-                                style: text11mCL,
-                              ),
-                      ),
-                    ),
                   ],
                 ),
                 SizedBox(height: 5.sp),
@@ -136,7 +106,7 @@ class _DetailInfoLiveUserWidgetState extends State<DetailInfoLiveUserWidget> {
                   ),
                 ),
                 child: CustomNetworkImage(
-                  urlToImage: widget.user.urlToImage,
+                  urlToImage: widget.user.displayPictureUrl,
                   height: 60.sp,
                   width: 60.sp,
                 ),
@@ -161,49 +131,6 @@ class _DetailInfoLiveUserWidgetState extends State<DetailInfoLiveUserWidget> {
               decoration: TextDecoration.underline,
             ),
           ),
-        ),
-        SizedBox(height: 5.sp),
-        Row(
-          mainAxisAlignment: MainAxisAlignment.center,
-          crossAxisAlignment: CrossAxisAlignment.center,
-          children: [
-            IndexInfoUser(
-              titleIndex: "Posts",
-              numberIndex: widget.user.posts!,
-            ),
-            Container(
-              margin: EdgeInsets.symmetric(horizontal: 20.sp),
-              width: 1.sp,
-              height: 80.sp,
-              decoration: const BoxDecoration(
-                gradient: LinearGradient(
-                  colors: [Colors.black26, Colors.white, Colors.black26],
-                  begin: Alignment.topCenter,
-                  end: Alignment.bottomCenter,
-                ),
-              ),
-            ),
-            IndexInfoUser(
-              titleIndex: "Following",
-              numberIndex: widget.user.followings!,
-            ),
-            Container(
-              margin: EdgeInsets.symmetric(horizontal: 20.sp),
-              width: 0.8.sp,
-              height: 80.sp,
-              decoration: const BoxDecoration(
-                gradient: LinearGradient(
-                  colors: [Colors.black26, Colors.white, Colors.black26],
-                  begin: Alignment.topCenter,
-                  end: Alignment.bottomCenter,
-                ),
-              ),
-            ),
-            IndexInfoUser(
-              titleIndex: "Followers",
-              numberIndex: widget.user.followers!,
-            ),
-          ],
         ),
         SizedBox(height: 5.sp),
       ],

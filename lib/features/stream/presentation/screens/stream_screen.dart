@@ -39,7 +39,7 @@ class _StreamScreenState extends State<StreamScreen> {
       streamId: widget.streamId,
       userId: widget.user!.userId,
       hostName: widget.user!.fullName,
-      hostImageUrl: widget.user!.urlToImage,
+      hostImageUrl: widget.user!.displayPictureUrl,
       startTime: DateTime.now(),
       isLiveStreamEnded: false,
       endTime: null,

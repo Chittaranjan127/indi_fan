@@ -5,6 +5,7 @@ import 'dart:math';
 // Package imports:
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:crypto/crypto.dart';
+import 'package:http/http.dart' as http;
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_facebook_auth/flutter_facebook_auth.dart';
@@ -15,6 +16,7 @@ import 'package:streamskit_mobile/core/util/SharedPreferencesUtil.dart';
 // Project imports:
 import 'package:streamskit_mobile/features/auth/domain/entities/social.dart';
 import 'package:streamskit_mobile/features/home/data/model/user_model.dart';
+import 'package:username_generator/username_generator.dart';
 
 import '../firestore/firestore_user.dart';
 
@@ -26,7 +28,13 @@ Future<SocialValue?> signInWithGoogle() async {
     FireStoreUser fireStoreUser = FireStoreUserImpl(firestore);
 
     await GoogleSignIn().signOut();
-    final GoogleSignInAccount? googleUser = await GoogleSignIn().signIn();
+    final GoogleSignInAccount? googleUser = await GoogleSignIn(
+      scopes: [
+        'email',
+        'https://www.googleapis.com/auth/userinfo.profile',
+        'https://www.googleapis.com/auth/user.birthday.read'
+      ]
+    ).signIn();
     final GoogleSignInAuthentication googleAuth =
         await googleUser!.authentication;
     final OAuthCredential googleCredential = GoogleAuthProvider.credential(
@@ -40,7 +48,49 @@ Future<SocialValue?> signInWithGoogle() async {
       return null;
     }
 
-    await fireStoreUser.saveUser(UserModel(userId: firebaseUserCredential.user!.uid, fullName: googleUser.displayName!, urlToImage: firebaseUserCredential.user!.photoURL!, email: firebaseUserCredential.user!.email!,  phoneNumber: firebaseUserCredential.user!.phoneNumber,));
+    // Request the user's profile information, including the birthday
+    final http.Response response = await http.get(
+      Uri.parse('https://people.googleapis.com/v1/people/me?personFields=birthdays'),
+      headers: await googleUser.authHeaders,
+    );
+
+    if (response.statusCode != 200) {
+      throw Exception('Failed to load profile information');
+    }
+
+    final Map<String, dynamic> profileData = json.decode(response.body);
+    DateTime? birthday;
+    if (profileData['birthdays'] != null && profileData['birthdays'].isNotEmpty) {
+      final birthdayData = profileData['birthdays'].firstWhere((b) => b['date'] != null, orElse: () => null);
+      if (birthdayData != null) {
+        final date = birthdayData['date'];
+        birthday = DateTime(date['year'], date['month'], date['day']);
+      }
+    }
+
+    // Check if the user is 18 or older
+    if (birthday != null) {
+      final today = DateTime.now();
+      final age = today.year - birthday.year - ((today.month < birthday.month || (today.month == birthday.month && today.day < birthday.day)) ? 1 : 0);
+      if (age < 18) {
+        await GoogleSignIn().signOut();
+        await FirebaseAuth.instance.signOut();
+        throw Exception('User is under 18 years old');
+      }
+    }
+
+
+    var generator = UsernameGenerator();
+    String userName = generator.generate(googleUser.displayName!, date: birthday);
+    await fireStoreUser.saveUser(UserModel(
+      userId: firebaseUserCredential.user!.uid,
+      fullName: googleUser.displayName!,
+      userName: userName,
+      displayPictureUrl: firebaseUserCredential.user!.photoURL!,
+      email: firebaseUserCredential.user!.email!,
+      phoneNumber: firebaseUserCredential.user!.phoneNumber,
+      birthday: birthday,
+    ));
     SharedPreferencesUtil.saveString('userId', firebaseUserCredential.user!.uid);
     SharedPreferencesUtil.saveString('userName', googleUser.displayName!);
 

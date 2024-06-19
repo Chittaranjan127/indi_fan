@@ -12,6 +12,8 @@ import 'dart:convert';
 
 import 'dart:convert';
 
+import 'dart:convert';
+
 enum Gender {
   male,
   female,
@@ -26,10 +28,12 @@ abstract class Model {
 class UserModel implements Model {
   String userId;
   String fullName;
-  String urlToImage;
+  String userName;
+  String displayPictureUrl;
   String email;
   String? description;
   String? phoneNumber;
+  String? bio;
   Gender gender;
   DateTime? birthday;
   int? posts;
@@ -40,14 +44,17 @@ class UserModel implements Model {
   bool isHost;
   bool isVerified;
   int? totalViews;
+  String? platformId;
 
   UserModel({
     required this.userId,
     required this.fullName,
-    required this.urlToImage,
+    required this.userName,
+    required this.displayPictureUrl,
     required this.email,
     this.description,
     this.phoneNumber,
+    this.bio,
     this.gender = Gender.other,
     this.birthday,
     this.posts,
@@ -58,6 +65,7 @@ class UserModel implements Model {
     this.isHost = false,
     this.isVerified = false,
     this.totalViews,
+    this.platformId,
   });
 
   @override
@@ -65,10 +73,12 @@ class UserModel implements Model {
     return {
       'userId': userId,
       'fullName': fullName,
-      'urlToImage': urlToImage,
+      'userName': userName,
+      'displayPictureUrl': displayPictureUrl,
       'email': email,
       'description': description,
       'phoneNumber': phoneNumber,
+      'bio': bio,
       'gender': gender.index,
       'birthday': birthday?.millisecondsSinceEpoch,
       'posts': posts,
@@ -79,6 +89,7 @@ class UserModel implements Model {
       'isHost': isHost,
       'isVerified': isVerified,
       'totalViews': totalViews,
+      'platformId': platformId,
     };
   }
 
@@ -86,10 +97,12 @@ class UserModel implements Model {
     return UserModel(
       userId: map['userId'] ?? '',
       fullName: map['fullName'] ?? '',
-      urlToImage: map['urlToImage'] ?? '',
+      userName: map['userName'] ?? '',
+      displayPictureUrl: map['displayPictureUrl'] ?? '',
       email: map['email'] ?? '',
       description: map['description'],
       phoneNumber: map['phoneNumber'],
+      bio: map['bio'],
       gender: Gender.values[map['gender'] ?? 2],
       birthday: map['birthday'] != null
           ? DateTime.fromMillisecondsSinceEpoch(map['birthday'])
@@ -102,6 +115,7 @@ class UserModel implements Model {
       isHost: map['isHost'] ?? false,
       isVerified: map['isVerified'] ?? false,
       totalViews: map['totalViews']?.toInt(),
+      platformId: map['platformId'],
     );
   }
 
@@ -113,7 +127,7 @@ class UserModel implements Model {
 
   @override
   String toString() {
-    return 'UserModel(userId: $userId, fullName: $fullName, urlToImage: $urlToImage, description: $description, phoneNumber: $phoneNumber, gender: $gender, birthday: $birthday, posts: $posts, followings: $followings, followers: $followers, listFields: $listFields, isLiveStream: $isLiveStream, isHost: $isHost, isVerified: $isVerified, totalViews: $totalViews)';
+    return 'UserModel(userId: $userId, fullName: $fullName, userName: $userName, displayPictureUrl: $displayPictureUrl, description: $description, phoneNumber: $phoneNumber, bio: $bio, gender: $gender, birthday: $birthday, posts: $posts, followings: $followings, followers: $followers, listFields: $listFields, isLiveStream: $isLiveStream, isHost: $isHost, isVerified: $isVerified, totalViews: $totalViews, platformId: $platformId)';
   }
 
   @override
@@ -123,9 +137,11 @@ class UserModel implements Model {
     return other is UserModel &&
         other.userId == userId &&
         other.fullName == fullName &&
-        other.urlToImage == urlToImage &&
+        other.userName == userName &&
+        other.displayPictureUrl == displayPictureUrl &&
         other.description == description &&
         other.phoneNumber == phoneNumber &&
+        other.bio == bio &&
         other.gender == gender &&
         other.birthday == birthday &&
         other.posts == posts &&
@@ -135,16 +151,19 @@ class UserModel implements Model {
         other.isLiveStream == isLiveStream &&
         other.isHost == isHost &&
         other.isVerified == isVerified &&
-        other.totalViews == totalViews;
+        other.totalViews == totalViews &&
+        other.platformId == platformId;
   }
 
   @override
   int get hashCode {
     return userId.hashCode ^
     fullName.hashCode ^
-    urlToImage.hashCode ^
+    userName.hashCode ^
+    displayPictureUrl.hashCode ^
     description.hashCode ^
     phoneNumber.hashCode ^
+    bio.hashCode ^
     gender.hashCode ^
     birthday.hashCode ^
     posts.hashCode ^
@@ -154,18 +173,19 @@ class UserModel implements Model {
     isLiveStream.hashCode ^
     isHost.hashCode ^
     isVerified.hashCode ^
-    totalViews.hashCode;
+    totalViews.hashCode ^
+    platformId.hashCode;
   }
 }
 
 
 List<UserModel> listUserFake = [
-  UserModel(fullName: 'Brody', urlToImage: urlUserFake3, isLiveStream: true, userId: 'ksbjbwejfbew', email: ''),
-  UserModel(fullName: 'Johnny', urlToImage: urlUserFake2, userId: 'ioqwfiohqfop', email: ''),
-  UserModel(fullName: 'Caroline', urlToImage: urlUserFake, userId: 'eoifhioew', email: ''),
-  UserModel(fullName: 'Jerry', urlToImage: urlUserFake2, userId: 'op23uoewhjfg', email: ''),
-  UserModel(fullName: 'Tommy', urlToImage: urlUserFake, userId: 'iohwefiohwef', email: ''),
-  UserModel(fullName: 'Cris', urlToImage: urlUserFake2, userId: 'oiwehgiwehg', email: ''),
+  UserModel(fullName: 'Brody',  isLiveStream: true, userId: 'ksbjbwejfbew', email: '', userName: '', displayPictureUrl: ''),
+  UserModel(fullName: 'Johnny',  userId: 'ioqwfiohqfop', email: '', userName: '', displayPictureUrl: ''),
+  UserModel(fullName: 'Caroline', userId: 'eoifhioew', email: '', userName: '', displayPictureUrl: ''),
+  UserModel(fullName: 'Jerry', userId: 'op23uoewhjfg', email: '', userName: '', displayPictureUrl: ''),
+  UserModel(fullName: 'Tommy', userId: 'iohwefiohwef', email: '', userName: '', displayPictureUrl: ''),
+  UserModel(fullName: 'Cris', userId: 'oiwehgiwehg', email: '', userName: '', displayPictureUrl: ''),
 ];
 
 const urlUserFake =
