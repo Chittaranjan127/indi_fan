@@ -6,3 +6,4 @@ const String iconNearby = 'assets/icons/ic_nearby.png';
 const String iconGame = 'assets/icons/ic_game.png';
 const String iconSharing = 'assets/icons/ic_sharing.png';
 const String iconEye = 'assets/icons/ic_eye.png';
+const String appIcon = 'assets/icons/app_icon.png';

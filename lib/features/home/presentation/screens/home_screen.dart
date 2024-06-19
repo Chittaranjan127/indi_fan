@@ -47,29 +47,11 @@ class _HomeScreenState extends State<HomeScreen> {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 Image.asset(
-                  launcherIcon,
+                  appIcon,
                   height: 44.sp,
                   width: 44.sp,
                   fit: BoxFit.cover,
                 ),
-                Row(
-                  children: [
-                    ButtonCircle(
-                      icon: PhosphorIcons.moonLight,
-                      onTap: () {},
-                    ),
-                    SizedBox(width: 8.sp),
-                    ButtonCircle(
-                      icon: PhosphorIcons.bellLight,
-                      onTap: () {},
-                    ),
-                    SizedBox(width: 8.sp),
-                    ButtonCircle(
-                      icon: PhosphorIcons.magnifyingGlassLight,
-                      onTap: () {},
-                    ),
-                  ],
-                )
               ],
             ),
           ),
